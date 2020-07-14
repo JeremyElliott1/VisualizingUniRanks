@@ -10,7 +10,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-db.query('SELECT universityName FROM leaguetableranking')
+db.connection.query('SELECT universityName FROM leaguetableranking')
   .then(([rowData, columnData]) => {
     let array = [];
     rowData.forEach(rowValue => {

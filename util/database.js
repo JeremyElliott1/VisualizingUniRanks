@@ -7,4 +7,8 @@ const pool = mysql.createPool({
   password: 'Sponge123!'
 })
 
-module.exports = pool.promise();
+const connection = pool.promise();
+
+module.exports = {
+  connection: connection
+}

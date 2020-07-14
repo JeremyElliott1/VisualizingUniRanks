@@ -4,4 +4,6 @@ getHomePage = (req, res, next) => {
   });
 };
 
-exports.getHomePage = getHomePage;
+module.exports = {
+  getHomePage: getHomePage
+}
