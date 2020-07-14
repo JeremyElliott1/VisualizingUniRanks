@@ -7,23 +7,53 @@
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
+
+
 </head>
 
 <body>
+  <script>let num = ["1", "2", "3"] 
+  </script>
+  <script>let name = "<% JSON.stringify(xAxis)%>";
+  </script>
   <h1>Hello World</h1>
+  <div 
+  id="data" 
+  data-xaxis= "<%= xAxis %>"
+  data-second= "<%= secondArray %>"
+  data-columnz="3"></div>
+  
+
 
   <div id="chart">
     <p>test</p>
 
   </div>
 
+
 </body>
 <script>
+  const dataDiv = document.querySelector('#data');
+  console.log(dataDiv.dataset.xaxis);
+  console.log(dataDiv.dataset.second);
+  let uninames = dataDiv.dataset.xaxis;
+  uninames = JSON.parse(uninames); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
+  console.log(uninames);
+
+  
+
   d3.select('#chart')
-    .selectAll('p')
-    .data([1, 2, 3, 4])
-    .enter()
-    .append('p')
-    .text(data => data);</script>
+   .selectAll('p')
+   .data(uninames)
+   .enter()
+   .append('p')
+   .text(data => data);
+
+  console.log(dataDiv.dataset.columnz);
+
+</script>
+
+
+
 
 </html>
