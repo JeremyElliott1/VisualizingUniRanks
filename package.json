@@ -19,8 +19,5 @@
   "homepage": "https://github.com/JeremyElliott1/DissertationProject#readme",
   "devDependencies": {
     "nodemon": "^2.0.4"
-  },
-  "dependencies": {
-    "express": "^4.17.1"
   }
 }
