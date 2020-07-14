@@ -1,0 +1,26 @@
+{
+  "name": "dissertationproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeremyElliott1/DissertationProject.git"
+  },
+  "author": "Jeremy E",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeremyElliott1/DissertationProject/issues"
+  },
+  "homepage": "https://github.com/JeremyElliott1/DissertationProject#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
