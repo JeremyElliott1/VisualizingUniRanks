@@ -1,0 +1,20 @@
+<script>
+  const dataDiv = document.querySelector('#data');
+  console.log(dataDiv.dataset.xaxis);
+  console.log(dataDiv.dataset.second);
+  let uninames = dataDiv.dataset.xaxis;
+  uninames = JSON.parse(uninames); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
+  console.log(uninames);
+
+
+
+  d3.select('#chart')
+    .selectAll('p')
+    .data(uninames)
+    .enter()
+    .append('p')
+    .text(data => data);
+
+  console.log(dataDiv.dataset.columnz);
+
+</script>

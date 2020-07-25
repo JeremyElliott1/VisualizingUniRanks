@@ -1,23 +1,17 @@
 const db = require('../util/database.js')
 
 getHomePage = (req, res, next) => {
-  db.connection.query('SELECT universityName FROM leaguetableranking')
+  db.connection.query('SELECT NameOfProvider FROM guardianinstitutionranking')
     .then(([rowData, columnData]) => {
-      let array = [];
+      let namesArray = [];
       rowData.forEach(rowValue => {
-        array.push(rowValue.universityName);
+        namesArray.push(rowValue.NameOfProvider);
       });
-      secondArray = array.slice(0);
-      array = JSON.stringify(array);
-
-      console.log(secondArray);
-
+      namesArray = JSON.stringify(namesArray);
       res.render('home.ejs', {
         pageTitle: 'Homepage',
-        xAxis: array,
-        secondArray: secondArray
+        xAxis: namesArray,
       });
-
     })
     .catch((err) => console.log(err));
 };
