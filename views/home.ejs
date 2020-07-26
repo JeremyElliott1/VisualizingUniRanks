@@ -15,6 +15,20 @@
   <div id="data" data-xaxis="<%= passedUniData %>">
   </div>
 
+  <div id="menus">
+    <label for="qualityVariables">Choose a variable:</label>
+
+    <select id='variableDropDown' name="qualityVariables" id="cars">
+      <option value="AverageTeachingScore">Average Teaching Score</option>
+      <option value="rank2020">2020 Rank</option>
+      <option value="rank2019">2019 Rank</option>
+      <option value="rank2018">2018 Rank</option>
+      <option value="rank2017">2017 Rank</option>
+      <option value="%SatisfiedwithTeaching">Teaching Satisfaction</option>
+      <option value="%Satisfiedwithcourse">Course Satisfaction</option>
+    </select>
+  </div>
+
   <svg id="chart" height="780" width="1620"></svg>
 
   <div>
@@ -99,10 +113,16 @@
       .attr('x', innerWidth / 2)
       .attr('y', 40);
 
-    chartBarsG.selectAll('rect')
+    let bars =  chartBarsG.selectAll('rect')
       .data(data)
-      .enter()
+      
+
+      bars.exit().
+      remove();
+
+      bars.enter()
       .append('rect')
+      .merge(bars)
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => innerHeight - (yScale(yValue(d))))
