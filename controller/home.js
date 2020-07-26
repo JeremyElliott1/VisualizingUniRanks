@@ -1,16 +1,16 @@
 const db = require('../util/database.js')
 
 getHomePage = (req, res, next) => {
-  db.connection.query('SELECT NameOfProvider FROM guardianinstitutionranking')
+  db.connection.query('SELECT * FROM guardianinstitutionranking')
     .then(([rowData, columnData]) => {
-      let namesArray = [];
+      let universities = [];
       rowData.forEach(rowValue => {
-        namesArray.push(rowValue.NameOfProvider);
+        universities.push(rowValue);
       });
-      namesArray = JSON.stringify(namesArray);
+      universities = JSON.stringify(universities);
       res.render('home.ejs', {
         pageTitle: 'Homepage',
-        xAxis: namesArray,
+        passedUniData: universities,
       });
     })
     .catch((err) => console.log(err));

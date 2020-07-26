@@ -12,26 +12,130 @@
 <body>
 
   <h1>Hello World</h1>
-  <div id="data" data-xaxis="<%= xAxis %>">
+  <div id="data" data-xaxis="<%= passedUniData %>">
   </div>
 
-  <div id="chart">
-    <p>test</p>
+  <svg id="chart" height="780" width="1620"></svg>
+
+  <div>
   </div>
 
 </body>
 <script>
   const dataDiv = document.querySelector('#data');
-  let uninames = dataDiv.dataset.xaxis;
-  uninames = JSON.parse(uninames); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
-  console.log(uninames);
+  let uniData = dataDiv.dataset.xaxis;
+  uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
-  d3.select('#chart')
-    .selectAll('p')
-    .data(uninames)
-    .enter()
-    .append('p')
-    .text(data => data);
+  const svg = d3.select('#chart');
+
+  const svgHeight = parseFloat(svg.attr('height'));
+  const svgWidth = parseFloat(svg.attr('width'));
+
+
+  const render = (data) => {
+    //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
+    const xValue = (d) => d.name;
+    const yValue = (d) => d.AverageTeachingScore;
+
+    data.forEach((d) => {
+      console.log(d.AverageTeachingScore);
+      console.log(typeof d.AverageTeachingScore)
+    });
+    ;
+    const margin = {
+      top: 60,
+      right: 40,
+      bottom: 60,
+      left: 120
+    }
+    const innerHeight = svgHeight - margin.top - margin.bottom;
+    const innerWidth = svgWidth - margin.left - margin.right;
+
+    //Scales
+    const xScale = d3.scaleBand()
+      .domain(data.map(xValue))
+      .range([0, innerWidth])
+      .padding(0.1);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data, yValue)])
+      .range([innerHeight, 0]);
+
+    //Axis
+    const yAxis = d3.axisLeft(yScale)
+      .tickSizeOuter(0)
+      .tickSize(-innerWidth)
+      .tickFormat(d3.format('.0s'));
+    const xAxis = d3.axisBottom(xScale)
+      .tickSizeOuter(0)
+      .tickFormat("");
+
+    //Margins & Appending/Positioning of Axis
+    const chartBarsG = svg.append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    const yAxisG = chartBarsG.append('g')
+      .call(yAxis);
+    yAxisG.append('text')
+      .text('Avereage')
+      .attr('fill', 'black')
+      .attr('x', -45)
+      .attr('y', innerHeight / 2);
+      yAxisG.append('text')
+      .text('Teaching')
+      .attr('fill', 'black')
+      .attr('x', -45)
+      .attr('y', innerHeight / 2 + 10);
+      yAxisG.append('text')
+      .text('Score')
+      .attr('fill', 'black')
+      .attr('x', -45)
+      .attr('y', innerHeight / 2 + 20);
+
+    const xAxisG = chartBarsG.append('g')
+      .call(xAxis)
+      .attr('transform', `translate(0, ${innerHeight})`);
+    xAxisG.append('text')
+      .text('Universities')
+      .attr('fill', 'black')
+      .attr('x', innerWidth / 2)
+      .attr('y', 40);
+
+    chartBarsG.selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d) => xScale(xValue(d)))
+      .attr('width', xScale.bandwidth())
+      .attr('height', (d) => innerHeight - (yScale(yValue(d))))
+      .attr('y', (d) => yScale(yValue(d)));
+
+    chartBarsG.append('text')
+      .attr('x', innerWidth / 2)
+      .attr('y', -margin.top / 2)
+      .text('University Average Teaching Scores');
+  };
+  render(uniData);
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // uniData.forEach((d) => {
+  //   console.log(d.rank2020);
+  // });
+  // d3.select('#chart')
+  //   .selectAll('p')
+  //   .data(uniData)
+  //   .enter()
+  //   .append('p')
+  //   .text(data => data.rank2020);
 </script>
 
 </html>
