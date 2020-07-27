@@ -10,7 +10,8 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 
-
+app.use('/careerprospects', homeRoute.getCareerProspectsPage)
 app.use('/', homeRoute.getHomePage)
+
 
 app.listen(3000);

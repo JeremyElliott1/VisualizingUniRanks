@@ -15,7 +15,7 @@
   <div id="data" data-xaxis="<%= passedUniData %>">
   </div>
 
-  <svg id="chart" height="780" width="1620"></svg>
+  <svg id="chart" height="780" width="1820"></svg>
 
   <div>
   </div>
@@ -23,26 +23,52 @@
 </body>
 <script>
 
-
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
+
+  const list = [
+    { color: 'white', size: 'XXL' },
+    { color: 'red', size: 'XL' },
+    { color: 'black', size: 'M' },
+    { color: 'blue', size: 'S' }
+  ]
+
+  const sortData = (data, variable) => {
+    let newList = data;
+    newList.sort((a, b) => {
+      //FIND OUT WHY THIS WORKS a[variable] VS a.variable DOESNT WORK ?????????? WHYYYYYYYYYYYYYYYYYYYYYYYYYYY
+      if (a[variable] < b[variable]) {
+        return 1;
+      } else {
+        return -1;
+      }
+    })
+    return newList;
+  }
+
+  sortedData = sortData(uniData, 'careerProspects');
 
   const svg = d3.select('#chart');
 
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
+
+
   const render = (data) => {
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
+    const xValueName = 'University';
+    const yValueName = 'Career Prospects';
+
     const xValue = (d) => d.name;
-    const yValue = (d) => d.AverageTeachingScore;
+    const yValue = (d) => d.careerProspects;
 
     const margin = {
       top: 60,
       right: 40,
       bottom: 60,
-      left: 120
+      left: 150
     }
     const innerHeight = svgHeight - margin.top - margin.bottom;
     const innerWidth = svgWidth - margin.left - margin.right;
@@ -51,7 +77,7 @@
     const xScale = d3.scaleBand()
       .domain(data.map(xValue))
       .range([0, innerWidth])
-      .padding(0.1);
+      .padding(0.3);
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, yValue)])
       .range([innerHeight, 0])
@@ -72,20 +98,10 @@
     const yAxisG = chartBarsG.append('g')
       .call(yAxis);
     yAxisG.append('text')
-      .text('Avereage')
+      .text(yValueName)
       .attr('fill', 'black')
       .attr('x', -45)
       .attr('y', innerHeight / 2);
-    yAxisG.append('text')
-      .text('Teaching')
-      .attr('fill', 'black')
-      .attr('x', -45)
-      .attr('y', innerHeight / 2 + 10);
-    yAxisG.append('text')
-      .text('Score')
-      .attr('fill', 'black')
-      .attr('x', -45)
-      .attr('y', innerHeight / 2 + 20);
 
     const xAxisG = chartBarsG.append('g')
       .call(xAxis)
@@ -114,31 +130,10 @@
     chartBarsG.append('text')
       .attr('x', innerWidth / 2)
       .attr('y', -margin.top / 2)
-      .text('University Average Teaching Scores');
+      .text(yValueName);
   };
-  render(uniData);
+  render(sortedData);
 
-
-
-
-
-
-
-
-
-
-
-
-
-  // uniData.forEach((d) => {
-  //   console.log(d.rank2020);
-  // });
-  // d3.select('#chart')
-  //   .selectAll('p')
-  //   .data(uniData)
-  //   .enter()
-  //   .append('p')
-  //   .text(data => data.rank2020);
 </script>
 
 </html>

@@ -11,8 +11,22 @@
 
 <body>
 
-  <h1>Guardian Institution Ranking</h1>
+  <h1>Hello World</h1>
   <div id="data" data-xaxis="<%= passedUniData %>">
+  </div>
+
+  <div id="menus">
+    <label for="qualityVariables">Choose a variable:</label>
+
+    <select id='variableDropDown' name="qualityVariables" id="cars">
+      <option value="AverageTeachingScore">Average Teaching Score</option>
+      <option value="rank2020">2020 Rank</option>
+      <option value="rank2019">2019 Rank</option>
+      <option value="rank2018">2018 Rank</option>
+      <option value="rank2017">2017 Rank</option>
+      <option value="%SatisfiedwithTeaching">Teaching Satisfaction</option>
+      <option value="%Satisfiedwithcourse">Course Satisfaction</option>
+    </select>
   </div>
 
   <svg id="chart" height="780" width="1620"></svg>
@@ -33,10 +47,26 @@
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
+  let sel = document.getElementById('variableDropDown');
+  sel = sel.options[sel.selectedIndex].value
+  d3.select("#variableDropDown").on("change", change)
+function change() {
+    sel = this.options[this.selectedIndex].value
+    console.log(sel);
+    render(uniData);
+}
+
+
   const render = (data) => {
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
     const xValue = (d) => d.name;
-    const yValue = (d) => d.AverageTeachingScore;
+    const yValue = (d) => d[sel];
+
+
+    // data.forEach((d) => {
+    //   console.log(d.AverageTeachingScore);
+    //   console.log(typeof d.AverageTeachingScore)
+    // });
 
     const margin = {
       top: 60,
@@ -54,8 +84,7 @@
       .padding(0.1);
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, yValue)])
-      .range([innerHeight, 0])
-      .nice();
+      .range([innerHeight, 0]);
 
     //Axis
     const yAxis = d3.axisLeft(yScale)
