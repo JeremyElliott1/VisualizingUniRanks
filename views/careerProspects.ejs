@@ -27,17 +27,11 @@
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
-  const list = [
-    { color: 'white', size: 'XXL' },
-    { color: 'red', size: 'XL' },
-    { color: 'black', size: 'M' },
-    { color: 'blue', size: 'S' }
-  ]
-
   const sortData = (data, variable) => {
     let newList = data;
     newList.sort((a, b) => {
-      //FIND OUT WHY THIS WORKS a[variable] VS a.variable DOESNT WORK ?????????? WHYYYYYYYYYYYYYYYYYYYYYYYYYYY
+      //Two ways to access a objects variable, dot notation and bracket notation.
+      //if attribute string is stored in a variable and not explicitly stated.  
       if (a[variable] < b[variable]) {
         return 1;
       } else {
