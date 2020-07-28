@@ -11,6 +11,7 @@ app.set('views', 'views');
 
 
 app.use('/careerprospects', homeRoute.getCareerProspectsPage)
+app.use('/pp', homeRoute.getParallelPlotPage)
 app.use('/', homeRoute.getHomePage)
 
 

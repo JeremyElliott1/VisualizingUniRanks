@@ -33,7 +33,25 @@ getCareerProspectsPage = (req, res, next) => {
 
 };
 
+getParallelPlotPage = (req, res, next) => {
+  db.connection.query('SELECT * FROM guardianinstitutionranking')
+    .then(([rowData, columnData]) => {
+      let universities = [];
+      rowData.forEach(rowValue => {
+        universities.push(rowValue);
+      });
+      universities = JSON.stringify(universities);
+      res.render('parallelPlot.ejs', {
+        pageTitle: 'Parallel Plot',
+        passedUniData: universities,
+      });
+    })
+    .catch((err) => console.log(err));
+
+};
+
 module.exports = {
   getHomePage: getHomePage,
-  getCareerProspectsPage: getCareerProspectsPage
+  getCareerProspectsPage: getCareerProspectsPage,
+  getParallelPlotPage: getParallelPlotPage
 };
