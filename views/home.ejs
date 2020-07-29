@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="/css/home.css">
 
 </head>
 
@@ -33,7 +34,18 @@
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
+  let selectedBar = null;
+
+  const onClick = (name) => {
+    selectedbar = name;
+    console.log(selectedbar);
+    render(uniData)
+    //currently when called, it re renders the entire graph and does not destroy the previously rendered bars.
+  }
+
   const render = (data) => {
+    d3.selectAll("#chart > *").remove();
+
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
     const xValue = (d) => d.name;
     const yValue = (d) => d.AverageTeachingScore;
@@ -42,7 +54,7 @@
       top: 60,
       right: 40,
       bottom: 60,
-      left: 120
+      left: 200
     }
     const innerHeight = svgHeight - margin.top - margin.bottom;
     const innerWidth = svgWidth - margin.left - margin.right;
@@ -51,7 +63,7 @@
     const xScale = d3.scaleBand()
       .domain(data.map(xValue))
       .range([0, innerWidth])
-      .padding(0.1);
+      .padding(0.15);
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, yValue)])
       .range([innerHeight, 0])
@@ -72,20 +84,10 @@
     const yAxisG = chartBarsG.append('g')
       .call(yAxis);
     yAxisG.append('text')
-      .text('Avereage')
+      .text('Avereage Teaching Score')
       .attr('fill', 'black')
       .attr('x', -45)
       .attr('y', innerHeight / 2);
-    yAxisG.append('text')
-      .text('Teaching')
-      .attr('fill', 'black')
-      .attr('x', -45)
-      .attr('y', innerHeight / 2 + 10);
-    yAxisG.append('text')
-      .text('Score')
-      .attr('fill', 'black')
-      .attr('x', -45)
-      .attr('y', innerHeight / 2 + 20);
 
     const xAxisG = chartBarsG.append('g')
       .call(xAxis)
@@ -96,20 +98,21 @@
       .attr('x', innerWidth / 2)
       .attr('y', 40);
 
-    let bars = chartBarsG.selectAll('rect')
+    let barsG = chartBarsG.selectAll('rect')
       .data(data)
 
-
-    bars.exit().
-      remove();
-
-    bars.enter()
+    barsG.enter()
       .append('rect')
-      .merge(bars)
+      .merge(barsG)
+      .classed('unselected', true)
+      .on('click', (d) => (onClick(d.name)))
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => innerHeight - (yScale(yValue(d))))
       .attr('y', (d) => yScale(yValue(d)));
+
+    barsG.exit().
+      remove();
 
     chartBarsG.append('text')
       .attr('x', innerWidth / 2)
