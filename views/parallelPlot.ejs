@@ -16,9 +16,6 @@
 
 
   <div id="my_dataviz"></div>
-  
-  
-  <svg id="chart" height="780" width="1620"></svg>
 
 </body>
 <script>
@@ -26,99 +23,105 @@
 
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
-  uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
-  
-
-  console.log(uniData[0]);
-
-  // const svg = d3.select('#chart');
-
-  // const svgHeight = parseFloat(svg.attr('height'));
-  // const svgWidth = parseFloat(svg.attr('width'));
-
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 10, bottom: 10, left: 0},
-  width = 1720 - margin.left - margin.right,
-  height = 780 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-.append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-.append("g")
-  .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
-
-// Parse the Data
- const drawChart = (data) => {
-
-  // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Species
-  let dimensions = d3.keys(data[0]).filter(function(d) {
-    console.log(d)
-    if(d !== "name"){
-      return d
-    }
-   });
+  uniData = JSON.parse(uniData); // Need to convert from JSON obj to String to manipulate the array of uniData objects.
 
 
-  // For each dimension, I build a linear scale. I store all in a y object
-  //essentially an empy object, iterates throught dimensions which is an object that contains attributes, these attriubtes are key value pairings
-  //where the key is just numbers 0-10, and the values are the string values for each column in the uni ranking table.
-  //so below, we a creating an empty object y.
-  //iterate through dimensions object, forEach attribute in dimensions, create a linear scale from min-max values of that column variable.
-  let y = {}
-  for (i in dimensions) {
-    name = dimensions[i]
-    y[name] = d3.scaleLinear()
-      .domain( d3.extent(data, function(d) { return +d[name]; }) )
-      .range([height, 0])
-  };
+  console.log(uniData[18]);
 
-  // Build the X scale -> it find the best position for each Y axis
-  //Equally spacing for an ordinal X axis. 
-  //Remember range is screen space, domain is data space.
-  x = d3.scalePoint()
-    .range([0, width])
-    .padding(1)
-    .domain(dimensions);
 
-    // console.log(x); //NOT SURE IF THIS WORKS!!!
+  // set the dimensions and margins of the graph
+  var margin = { top: 30, right: 10, bottom: 10, left: 0 },
+    width = 1720 - margin.left - margin.right,
+    height = 780 - margin.top - margin.bottom;
 
-  // The path function take a row of the csv as input, and return x and y coordinates of the line to draw for this raw.
-  function path(d) {
-      return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
-  }
-
-  // Draw the lines
-  svg
-    .selectAll("myPath")
-    .data(data)
-    .enter().append("path")
-    .attr("d",  path)
-    .style("fill", "none")
-    .style("stroke", "#69b3a2")
-    .style("opacity", 0.5)
-
-  // Draw the axis:
-  svg.selectAll("myAxis")
-    // For each dimension of the dataset I add a 'g' element:
-    .data(dimensions).enter()
+  // append the svg object to the body of the page
+  var svg = d3.select("#my_dataviz")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    // I translate this element to its right position on the x axis
-    .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
-    // And I build the axis with the call function
-    .each(function(d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
-    // Add axis title
-    .append("text")
+    .attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+
+  const drawChart = (data) => {
+
+    // Extract the list of dimensions we want to keep in the plot, all except "name".
+    let dimensions = d3.keys(data[0]).filter(function (d) {
+      if (d !== "name") {
+        return d
+      }
+    });
+
+
+    // For each dimension, I build a linear scale. I store all in a y object
+    //essentially an empty object, iterates throught dimensions which is an object that contains attributes, these attriubtes are key value pairings
+    //where the key is just numbers 0-10, and the values are the string values for each column in the uni ranking table.
+    //so below, we a creating an empty object y.
+    //iterate through dimensions object, forEach attribute in dimensions, create a linear scale from min-max values of that column variable.
+    let y = {}
+    for (i in dimensions) {
+      name = dimensions[i]
+      y[name] = d3.scaleLinear()
+        .domain(d3.extent(data, function (d) {
+          if (d[name] == "") { return null }
+          return d[name];
+        }))
+        .range([height, 0])
+    };
+
+    // Build the X scale -> it find the best position for each Y axis
+    //Equally spacing for an ordinal X axis. 
+    //Remember range is screen space, domain is data space.
+    x = d3.scalePoint()
+      .range([0, width])
+      .padding(1)
+      .domain(dimensions);
+
+
+    // The path function take a row of DB input, and return x and y coordinates of the line to draw for this raw.
+    function path(d) {
+      return d3.line()(dimensions.map(function (column) {
+        if (d[column] === "") {
+          return [x(column, null)]
+        }
+        return [x(column), y[column](d[column])];
+      }));
+    }
+
+    function handleHover(d) {
+      d3.select(this);
+    }
+
+    // Draw the lines
+    svg
+      .selectAll("myPath")
+      .data(data)
+      .enter().append("path")
+      .attr("d", path)
+      // .on('hover', print(d))
+      .style("fill", "none")
+      .style("stroke", "#69b3a2")
+      .style("opacity", 0.5)
+
+    // Draw the axis:
+    svg.selectAll("myAxis")
+      // For each dimension of the dataset, add a group element:
+      .data(dimensions).enter()
+      .append("g")
+      // Translate this element to its right position on the x axis
+      .attr("transform", function (d) { return "translate(" + x(d) + ")"; })
+      // Build the axis with the call function
+      .each(function (d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
+      // Add axis title
+      .append("text")
       .style("text-anchor", "middle")
       .attr("y", -9)
-      .text(function(d) { return d; })
+      .text(function (d) { return d; })
       .style("fill", "black")
 
-}
-drawChart(uniData);
- 
+  }
+  drawChart(uniData);
+
 </script>
 
 </html>
