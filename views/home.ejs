@@ -7,7 +7,6 @@
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <link rel="stylesheet" href="/css/home.css">
-
 </head>
 
 <body>
@@ -35,12 +34,6 @@
   const svgWidth = parseFloat(svg.attr('width'));
 
   let selectedBar = null;
-
-  // const onClick = (name) => {
-  //   selectedbar = name;
-  //   console.log(selectedbar);
-  //   render(uniData)
-  // }
 
   const onClick = (d) => {
     selectedbar = name;
@@ -129,26 +122,6 @@
       .text('University Average Teaching Scores');
   };
   render(uniData);
-
-
-
-
-
-
-
-
-
-
-
-  // uniData.forEach((d) => {
-  //   console.log(d.rank2020);
-  // });
-  // d3.select('#chart')
-  //   .selectAll('p')
-  //   .data(uniData)
-  //   .enter()
-  //   .append('p')
-  //   .text(data => data.rank2020);
 </script>
 
 </html>
