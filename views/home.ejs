@@ -106,7 +106,7 @@
     barsG.enter()
       .append('rect')
       .merge(barsG)
-      .attr('class', 'unselected')
+      .attr('class', 'unSelected')
       .on('click', handleClick)
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())

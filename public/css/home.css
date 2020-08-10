@@ -8,7 +8,7 @@ h1 {
   text-align: center;
 }
 
-.unselected {
+.unSelected {
   fill: rgb(23, 117, 240);
 }
 .selected {
