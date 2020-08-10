@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
-
+  <link rel="stylesheet" href="/css/parallelPlot.css">
 </head>
 
 <body>
@@ -42,6 +42,16 @@
     .append("g")
     .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")");
+
+  //Create div for tooltip
+  let div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+    //Click Handler
+    function handleClick(d, i) {
+    d3.select(this).classed("selected", !d3.select(this).classed("selected"));
+  }
 
   const drawChart = (data) => {
 
@@ -80,7 +90,9 @@
 
     // The path function take a row of DB input, and return x and y coordinates of the line to draw for this raw.
     function path(d) {
-      return d3.line()(dimensions.map(function (column) {
+      return d3.line()
+      .defined(function(d) { return d[1] != null; })
+      (dimensions.map(function (column) {
         if (d[column] === "") {
           return [x(column, null)]
         }
@@ -98,10 +110,23 @@
       .data(data)
       .enter().append("path")
       .attr("d", path)
-      // .on('hover', print(d))
       .style("fill", "none")
-      .style("stroke", "#69b3a2")
+      .classed("selected", true)
       .style("opacity", 0.5)
+      .on('click', handleClick)
+      .on("mouseover", function(d) {	
+        div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            div.html(d.name)	
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");	
+            })					
+        .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+        });
 
     // Draw the axis:
     svg.selectAll("myAxis")
