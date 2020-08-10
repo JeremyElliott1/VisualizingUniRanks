@@ -61,7 +61,7 @@
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, yValue)])
       .range([innerHeight, 0])
-      .nice();
+      .nice(); 
 
     //Axis
     const yAxis = d3.axisLeft(yScale)
@@ -73,9 +73,9 @@
       .tickFormat("");
 
     //Margins & Appending/Positioning of Axis
-    const chartBarsG = svg.append('g')
+    const innerVis = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
-    const yAxisG = chartBarsG.append('g')
+    const yAxisG = innerVis.append('g')
       .call(yAxis);
     yAxisG.append('text')
       .text('Avereage Teaching Score')
@@ -83,7 +83,7 @@
       .attr('x', -45)
       .attr('y', innerHeight / 2);
 
-    const xAxisG = chartBarsG.append('g')
+    const xAxisG = innerVis.append('g')
       .call(xAxis)
       .attr('transform', `translate(0, ${innerHeight})`);
     xAxisG.append('text')
@@ -92,7 +92,7 @@
       .attr('x', innerWidth / 2)
       .attr('y', 40);
 
-    let barsG = chartBarsG.selectAll('rect')
+    let barsG = innerVis.selectAll('rect')
       .data(data);
 
     barsG.enter()
