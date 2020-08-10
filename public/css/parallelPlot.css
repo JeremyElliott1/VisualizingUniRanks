@@ -21,6 +21,14 @@ div.tooltip {
   pointer-events: none;			
 } 
 
+.unSelected {
+  stroke: rgb(0, 70, 0);
+  fill: none;
+  opacity: 0.3;
+}
+
 .selected {
   stroke: rgb(240, 23, 23);
+  opacity: 1;
 }
+
