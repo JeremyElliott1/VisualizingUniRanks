@@ -33,14 +33,6 @@
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
-  let selectedBar = null;
-
-  const onClick = (d) => {
-    selectedbar = name;
-    console.log(selectedbar);
-    render(uniData)
-  }
-
   function handleClick(d, i) {
     d3.select(this).classed("selected", !d3.select(this).classed("selected"));
   }
