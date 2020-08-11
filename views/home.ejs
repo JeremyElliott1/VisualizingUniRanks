@@ -48,10 +48,10 @@
       top: 60,
       right: 40,
       bottom: 60,
-      left: 200
+      left: 180
     }
-    const innerHeight = svgHeight - margin.top;
-    const innerWidth = svgWidth - margin.left;
+    const innerHeight = svgHeight - margin.top - margin.bottom;
+    const innerWidth = svgWidth - margin.left - margin.right;
 
     //Scales
     const xScale = d3.scaleBand()

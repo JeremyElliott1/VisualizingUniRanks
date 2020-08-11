@@ -56,14 +56,13 @@
     d3.selectAll("#my_dataviz > *").remove();
 
     const margin = {
-      top: 20,
+      top: 60,
       right: 40,
-      bottom: 20,
-      left: 50
+      bottom: 60,
+      left: 150
     }
-
     const innerHeight = svgHeight - margin.top - margin.bottom;
-    const innerWidth = svgWidth - margin.left;
+    const innerWidth = svgWidth - margin.left - margin.right;
 
 
     const innerVis = svg.append('g')
