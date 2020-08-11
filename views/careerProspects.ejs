@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="/css/guardianDefault.css">
+
 
 </head>
 
@@ -28,8 +30,8 @@
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
   const sortData = (data, variable) => {
-    let newList = data;
-    newList.sort((a, b) => {
+    let sortedArray = data;
+    sortedArray.sort((a, b) => {
       //Two ways to access a objects variable, dot notation and bracket notation.
       //if attribute string is stored in a variable and not explicitly stated.  
       if (a[variable] < b[variable]) {
@@ -38,7 +40,7 @@
         return -1;
       }
     })
-    return newList;
+    return sortedArray;
   }
 
   sortedData = sortData(uniData, 'careerProspects');

@@ -31,15 +31,6 @@
   const svgWidth = parseFloat(svg.attr('width'));
 
 
-  // append the svg object to the body of the page
-  // var svg2 = d3.select("#my_dataviz")
-  //   .append("svg")
-  //   .attr("width", innerWidth + margin.left + margin.right)
-  //   .attr("height", innerHeight + margin.top + margin.bottom)
-  //   .append("g")
-  //   .attr("transform",
-  //     "translate(" + margin.left + "," + margin.top + ")");
-
   //Create div for tooltip
   let div = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -53,7 +44,7 @@
 
   const drawChart = (data) => {
 
-    d3.selectAll("#my_dataviz > *").remove();
+    d3.selectAll("#parallelChart > *").remove();
 
     const margin = {
       top: 60,
@@ -129,10 +120,6 @@
         }));
     }
 
-    function handleHover(d) {
-      d3.select(this);
-    }
-
     let linesG = innerVis
       .selectAll('myPath')
       .data(data);
@@ -164,8 +151,6 @@
     linesG
       .exit()
       .remove();
-
-
   }
   drawChart(uniData);
 

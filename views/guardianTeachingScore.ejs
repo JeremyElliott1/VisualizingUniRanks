@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/guardianDefault.css">
 </head>
 
 <body>
@@ -28,10 +28,31 @@
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
+  const sortData = (data, variable) => {
+    let sortedArray = data;
+    sortedArray.sort((a, b) => {
+      //Two ways to access a objects variable, dot notation and bracket notation.
+      //if attribute string is stored in a variable and not explicitly stated.  
+      if (a[variable] < b[variable]) {
+        return 1;
+      } else {
+        return -1;
+      }
+    })
+    return sortedArray;
+  }
+
+  sortedData = sortData(uniData, 'AverageTeachingScore');
+
   const svg = d3.select('#chart');
 
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
+
+  //Create div for tooltip
+  let div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
   function handleClick(d, i) {
     d3.select(this).classed("selected", !d3.select(this).classed("selected"));
@@ -61,7 +82,7 @@
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, yValue)])
       .range([innerHeight, 0])
-      .nice(); 
+      .nice();
 
     //Axis
     const yAxis = d3.axisLeft(yScale)
@@ -103,12 +124,25 @@
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => innerHeight - (yScale(yValue(d))))
-      .attr('y', (d) => yScale(yValue(d)));
+      .attr('y', (d) => yScale(yValue(d)))
+      .on("mouseover", function (d) {
+        div.transition()
+          .duration(200)
+          .style("opacity", .9);
+        div.html(d.name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+        div.transition()
+          .duration(500)
+          .style("opacity", 0);
+      });
 
     barsG.exit().
       remove();
 
-    chartBarsG.append('text')
+    innerVis.append('text')
       .attr('x', innerWidth / 2)
       .attr('y', -margin.top / 2)
       .text('University Average Teaching Scores');
