@@ -1,6 +1,10 @@
 const db = require('../util/database.js')
 
-getHomePage = (req, res, next) => {
+get404Page = (req,res,next) => {
+
+}
+
+getGuardianTeachingScorePage = (req, res, next) => {
   db.connection.query('SELECT * FROM guardianinstitutionranking')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -8,8 +12,8 @@ getHomePage = (req, res, next) => {
         universities.push(rowValue);
       });
       universities = JSON.stringify(universities);
-      res.render('home.ejs', {
-        pageTitle: 'Homepage',
+      res.render('guardianTeachingScore.ejs', {
+        pageTitle: 'TheGuardian Teaching Scores',
         passedUniData: universities,
       });
     })
@@ -25,7 +29,7 @@ getCareerProspectsPage = (req, res, next) => {
       });
       universities = JSON.stringify(universities);
       res.render('careerProspects.ejs', {
-        pageTitle: 'CareerProspects',
+        pageTitle: 'TheGuardian Career Prospects',
         passedUniData: universities,
       });
     })
@@ -51,7 +55,7 @@ getParallelPlotPage = (req, res, next) => {
 };
 
 module.exports = {
-  getHomePage: getHomePage,
+  getGuardianTeachingScorePage: getGuardianTeachingScorePage,
   getCareerProspectsPage: getCareerProspectsPage,
   getParallelPlotPage: getParallelPlotPage
 };

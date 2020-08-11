@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+
+  <h1>Guardian Institution Ranking</h1>
+  <div id="data" data-xaxis="<%= passedUniData %>">
+  </div>
+
+  <svg id="chart" height="780" width="1620"></svg>
+
+  <div>
+  </div>
+
+</body>
+<script>
+
+
+  const dataDiv = document.querySelector('#data');
+  let uniData = dataDiv.dataset.xaxis;
+  uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
+
+  const svg = d3.select('#chart');
+
+  const svgHeight = parseFloat(svg.attr('height'));
+  const svgWidth = parseFloat(svg.attr('width'));
+
+  function handleClick(d, i) {
+    d3.select(this).classed("selected", !d3.select(this).classed("selected"));
+  }
+
+  const render = (data) => {
+    d3.selectAll("#chart > *").remove();
+
+    //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
+    const xValue = (d) => d.name;
+    const yValue = (d) => d.AverageTeachingScore;
+
+    const margin = {
+      top: 60,
+      right: 40,
+      bottom: 60,
+      left: 180
+    }
+    const innerHeight = svgHeight - margin.top - margin.bottom;
+    const innerWidth = svgWidth - margin.left - margin.right;
+
+    //Scales
+    const xScale = d3.scaleBand()
+      .domain(data.map(xValue))
+      .range([0, innerWidth])
+      .padding(0.15);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data, yValue)])
+      .range([innerHeight, 0])
+      .nice(); 
+
+    //Axis
+    const yAxis = d3.axisLeft(yScale)
+      .tickSizeOuter(0)
+      .tickSize(-innerWidth)
+      .tickFormat(d3.format('.0s'));
+    const xAxis = d3.axisBottom(xScale)
+      .tickSizeOuter(0)
+      .tickFormat("");
+
+    //Margins & Appending/Positioning of Axis
+    const innerVis = svg.append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    const yAxisG = innerVis.append('g')
+      .call(yAxis);
+    yAxisG.append('text')
+      .text('Avereage Teaching Score')
+      .attr('fill', 'black')
+      .attr('x', -45)
+      .attr('y', innerHeight / 2);
+
+    const xAxisG = innerVis.append('g')
+      .call(xAxis)
+      .attr('transform', `translate(0, ${innerHeight})`);
+    xAxisG.append('text')
+      .text('Universities')
+      .attr('fill', 'black')
+      .attr('x', innerWidth / 2)
+      .attr('y', 40);
+
+    let barsG = innerVis.selectAll('rect')
+      .data(data);
+
+    barsG.enter()
+      .append('rect')
+      .merge(barsG)
+      .attr('class', 'unSelected')
+      .on('click', handleClick)
+      .attr('x', (d) => xScale(xValue(d)))
+      .attr('width', xScale.bandwidth())
+      .attr('height', (d) => innerHeight - (yScale(yValue(d))))
+      .attr('y', (d) => yScale(yValue(d)));
+
+    barsG.exit().
+      remove();
+
+    chartBarsG.append('text')
+      .attr('x', innerWidth / 2)
+      .attr('y', -margin.top / 2)
+      .text('University Average Teaching Scores');
+  };
+  render(uniData);
+</script>
+
+</html>

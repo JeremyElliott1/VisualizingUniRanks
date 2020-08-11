@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 
 // Local imports
-const homeRoute = require('./controller/home.js');
+const guardianRoutes = require('./controller/guardianRoutes.js');
 
 const app = express();
 
@@ -13,9 +13,13 @@ app.set('views', 'views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/careerprospects', homeRoute.getCareerProspectsPage)
-app.use('/pp', homeRoute.getParallelPlotPage)
-app.use('/', homeRoute.getHomePage)
+app.use('/careerprospects', guardianRoutes.getCareerProspectsPage)
+app.use('/pp', guardianRoutes.getParallelPlotPage)
+app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage)
+app.use('/', (req, res, next) => {
+  res.render('home.ejs');
+})
+
 
 
 app.listen(3000);
