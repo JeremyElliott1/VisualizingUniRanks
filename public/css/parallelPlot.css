@@ -30,5 +30,6 @@ div.tooltip {
 .selected {
   stroke: rgb(240, 23, 23);
   opacity: 1;
+  stroke-width: 5px;
 }
 
