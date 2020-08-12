@@ -5,7 +5,7 @@ get404Page = (req,res,next) => {
 }
 
 getGuardianTeachingScorePage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardianinstitutionranking')
+  db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
@@ -21,15 +21,15 @@ getGuardianTeachingScorePage = (req, res, next) => {
 };
 
 getCareerProspectsPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardianinstitutionranking')
+  db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
         universities.push(rowValue);
       });
       universities = JSON.stringify(universities);
-      res.render('careerProspects.ejs', {
-        pageTitle: 'TheGuardian Career Prospects',
+      res.render('guardianCareerProspects.ejs', {
+        pageTitle: 'The Guardian Career Prospects',
         passedUniData: universities,
       });
     })
@@ -38,7 +38,7 @@ getCareerProspectsPage = (req, res, next) => {
 };
 
 getParallelPlotPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardianinstitutionranking')
+  db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
