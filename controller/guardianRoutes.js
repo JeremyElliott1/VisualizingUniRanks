@@ -45,7 +45,7 @@ getParallelPlotPage = (req, res, next) => {
         universities.push(rowValue);
       });
       universities = JSON.stringify(universities);
-      res.render('parallelPlot.ejs', {
+      res.render('guardianParallelPlot.ejs', {
         pageTitle: 'Parallel Plot',
         passedUniData: universities,
       });

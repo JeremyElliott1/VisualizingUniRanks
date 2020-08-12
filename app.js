@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/careerprospects', guardianRoutes.getCareerProspectsPage)
-app.use('/pp', guardianRoutes.getParallelPlotPage)
+app.use('/parallelCoordinatesPlot', guardianRoutes.getParallelPlotPage)
 app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage)
 app.use('/', (req, res, next) => {
   res.render('home.ejs');
