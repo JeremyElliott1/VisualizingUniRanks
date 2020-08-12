@@ -83,12 +83,16 @@
     let yScale = {}
     for (i in dimensions) {
       metricName = dimensions[i]
+      let yRange = [innerHeight, 0];
+      if(metricName.includes("rank") || metricName.includes("ratio")){
+        yRange = [0, innerHeight]
+      }
       yScale[metricName] = d3.scaleLinear()
         .domain(d3.extent(data, function (d) {
           if (d[metricName] == "") { return null }
           return d[metricName];
         }))
-        .range([innerHeight, 0])
+        .range(yRange)
     };
 
     // Draw the axis:
