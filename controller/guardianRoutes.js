@@ -1,9 +1,5 @@
 const db = require('../util/database.js')
 
-get404Page = (req,res,next) => {
-
-}
-
 getGuardianTeachingScorePage = (req, res, next) => {
   db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {

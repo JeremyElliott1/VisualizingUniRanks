@@ -42,7 +42,7 @@
     return sortedArray;
   }
 
-  sortedData = sortData(uniData, 'careerProspects');
+  sortedData = sortData(uniData, 'careerprospects');
 
   const svg = d3.select('#chart');
 
@@ -64,7 +64,7 @@
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
 
     const xValue = (d) => d.name;
-    const yValue = (d) => d.careerProspects;
+    const yValue = (d) => d.careerprospects;
 
     const margin = {
       top: 60,

@@ -4,6 +4,7 @@ const path = require('path');
 
 // Local imports
 const guardianRoutes = require('./controller/guardianRoutes.js');
+const completeUniRoutes = require('./controller/completeUniRoutes.js');
 
 const app = express();
 
@@ -12,13 +13,13 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use('/careerprospects', guardianRoutes.getCareerProspectsPage)
-app.use('/parallelCoordinatesPlot', guardianRoutes.getParallelPlotPage)
-app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage)
+app.use('/careerprospects', guardianRoutes.getCareerProspectsPage);
+app.use('/parallelCoordinatesPlot', guardianRoutes.getParallelPlotPage);
+app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage);
+app.use('/overall', completeUniRoutes.getCompleteUniOverallScorePage);
 app.use('/', (req, res, next) => {
   res.render('home.ejs');
-})
+});
 
 
 
