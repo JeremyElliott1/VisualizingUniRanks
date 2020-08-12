@@ -15,7 +15,6 @@
   <div id="data" data-xaxis="<%= passedUniData %>"></div>
 
   <svg id="parallelChart" height="780" width="1800"></svg>
-  <div id="my_dataviz"></div>
 
 </body>
 <script>
@@ -47,10 +46,10 @@
     d3.selectAll("#parallelChart > *").remove();
 
     const margin = {
-      top: 60,
-      right: 40,
-      bottom: 60,
-      left: 40
+      top: 25,
+      right: 0,
+      bottom: 10,
+      left: 0
     }
     const innerHeight = svgHeight - margin.top - margin.bottom;
     const innerWidth = svgWidth - margin.left - margin.right;
@@ -84,7 +83,7 @@
     for (i in dimensions) {
       metricName = dimensions[i]
       let yRange = [innerHeight, 0];
-      if(metricName.includes("rank") || metricName.includes("ratio")){
+      if (metricName.includes("rank") || metricName.includes("ratio")) {
         yRange = [0, innerHeight]
       }
       yScale[metricName] = d3.scaleLinear()
