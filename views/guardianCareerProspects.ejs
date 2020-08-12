@@ -7,8 +7,6 @@
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <link rel="stylesheet" href="/css/guardianDefault.css">
-
-
 </head>
 
 <body>
@@ -17,13 +15,14 @@
   <div id="data" data-xaxis="<%= passedUniData %>">
   </div>
 
-  <svg id="chart" height="780" width="1820"></svg>
+  <svg id="chart" height="780" width="1620"></svg>
 
   <div>
   </div>
 
 </body>
 <script>
+
 
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
@@ -50,12 +49,19 @@
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
+  //Create div for tooltip
+  let div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
+  function handleClick(d, i) {
+    d3.select(this).classed("selected", !d3.select(this).classed("selected"));
+  }
 
   const render = (data) => {
+    d3.selectAll("#chart > *").remove();
+
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
-    const xValueName = 'University';
-    const yValueName = 'Career Prospects';
 
     const xValue = (d) => d.name;
     const yValue = (d) => d.careerProspects;
@@ -64,7 +70,7 @@
       top: 60,
       right: 40,
       bottom: 60,
-      left: 150
+      left: 180
     }
     const innerHeight = svgHeight - margin.top - margin.bottom;
     const innerWidth = svgWidth - margin.left - margin.right;
@@ -73,7 +79,7 @@
     const xScale = d3.scaleBand()
       .domain(data.map(xValue))
       .range([0, innerWidth])
-      .padding(0.3);
+      .padding(0.15);
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, yValue)])
       .range([innerHeight, 0])
@@ -89,17 +95,17 @@
       .tickFormat("");
 
     //Margins & Appending/Positioning of Axis
-    const chartBarsG = svg.append('g')
+    const innerVis = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
-    const yAxisG = chartBarsG.append('g')
+    const yAxisG = innerVis.append('g')
       .call(yAxis);
     yAxisG.append('text')
-      .text(yValueName)
+      .text('Career Prospects')
       .attr('fill', 'black')
       .attr('x', -45)
       .attr('y', innerHeight / 2);
 
-    const xAxisG = chartBarsG.append('g')
+    const xAxisG = innerVis.append('g')
       .call(xAxis)
       .attr('transform', `translate(0, ${innerHeight})`);
     xAxisG.append('text')
@@ -108,28 +114,41 @@
       .attr('x', innerWidth / 2)
       .attr('y', 40);
 
-    let bars = chartBarsG.selectAll('rect')
-      .data(data)
+    let barsG = innerVis.selectAll('rect')
+      .data(data);
 
-
-    bars.exit().
-      remove();
-
-    bars.enter()
+    barsG.enter()
       .append('rect')
-      .merge(bars)
+      .merge(barsG)
+      .attr('class', 'unSelected')
+      .on('click', handleClick)
       .attr('x', (d) => xScale(xValue(d)))
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => innerHeight - (yScale(yValue(d))))
-      .attr('y', (d) => yScale(yValue(d)));
+      .attr('y', (d) => yScale(yValue(d)))
+      .on("mouseover", function (d) {
+        div.transition()
+          .duration(200)
+          .style("opacity", .9);
+        div.html(d.name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+        div.transition()
+          .duration(500)
+          .style("opacity", 0);
+      });
 
-    chartBarsG.append('text')
+    barsG.exit().
+      remove();
+
+    innerVis.append('text')
       .attr('x', innerWidth / 2)
       .attr('y', -margin.top / 2)
-      .text(yValueName);
+      .text('University Career Prospects');
   };
-  render(sortedData);
-
+  render(uniData);
 </script>
 
 </html>
