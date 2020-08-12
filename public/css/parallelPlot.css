@@ -1,5 +1,5 @@
 h1 {
-  color: rgb(0, 180, 0);
+  color: rgb(23, 117, 240);
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 100px;
   font-weight: bold;
@@ -11,8 +11,8 @@ h1 {
 div.tooltip {	
   position: absolute;			
   text-align: center;			
-  width: 60px;					
-  height: 28px;					
+  width: 75px;					
+  height: 38px;					
   padding: 2px;				
   font: 12px sans-serif;		
   background: lightsteelblue;	
@@ -22,7 +22,7 @@ div.tooltip {
 } 
 
 .unSelected {
-  stroke: rgb(0, 70, 0);
+  stroke: darkblue;
   fill: none;
   opacity: 0.3;
 }
