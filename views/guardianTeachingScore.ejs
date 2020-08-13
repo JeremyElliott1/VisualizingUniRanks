@@ -11,7 +11,8 @@
 
 <body>
 
-  <h1>Guardian Institution Ranking</h1>
+  <h1>Guardian Overall Ranking</h1>
+
   <div id="data" data-xaxis="<%= passedUniData %>">
   </div>
 
@@ -42,7 +43,7 @@
     return sortedArray;
   }
 
-  sortedData = sortData(uniData, 'AverageTeachingScore');
+  sortedData = sortData(uniData, 'averageteachingscore');
 
   const svg = d3.select('#chart');
 
@@ -63,7 +64,7 @@
 
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
     const xValue = (d) => d.name;
-    const yValue = (d) => d.AverageTeachingScore;
+    const yValue = (d) => d.averageteachingscore;
 
     const margin = {
       top: 60,

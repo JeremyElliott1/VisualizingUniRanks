@@ -36,3 +36,10 @@ div.tooltip {
 #data{
   display: none;
 }
+
+#buttonPannel{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
