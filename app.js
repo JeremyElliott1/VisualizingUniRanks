@@ -13,6 +13,7 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/drag', guardianRoutes.getGuardianDragPage);
 app.use('/careerprospects', guardianRoutes.getCareerProspectsPage);
 app.use('/parallelCoordinatesPlot', guardianRoutes.getParallelPlotPage);
 app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage);

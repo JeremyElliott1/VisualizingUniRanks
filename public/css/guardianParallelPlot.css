@@ -21,6 +21,12 @@ div.tooltip {
   pointer-events: none;			
 } 
 
+.background path {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+}
+
 .unSelected {
   stroke: darkblue;
   fill: none;
@@ -42,4 +48,11 @@ div.tooltip {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+
+
+.foreground path {
+  fill: none;
+  stroke: steelblue;
 }

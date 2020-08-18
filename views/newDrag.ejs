@@ -35,20 +35,24 @@
   const svgWidth = parseFloat(svg.attr('width'));
 
 
-  //Create div for tooltip
-  let div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+  // //Create div for tooltip
+  // let div = d3.select("body").append("div")
+  //   .attr("class", "tooltip")
+  //   .style("opacity", 0);
 
-  //Click Handler
-  function handleClick(d, i) {
-    d3.select(this).classed("selected", !d3.select(this).classed("selected"));
-    console.log(d.class);
-  }
+  // //Click Handler
+  // function handleClick(d, i) {
+  //   d3.select(this).classed("selected", !d3.select(this).classed("selected"));
+  //   console.log(d.class);
+  // }
 
   const drawChart = (data) => {
 
     d3.selectAll("#parallelChart > *").remove();
+
+    let background = {};
+    let foreground = {};
+    let dragging = {};
 
     const margin = {
       top: 25,
@@ -58,6 +62,7 @@
     }
     const innerHeight = svgHeight - margin.top - margin.bottom;
     const innerWidth = svgWidth - margin.left - margin.right;
+
 
     const innerVis = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
@@ -83,7 +88,7 @@
     //where the key is just numbers 0-10, and the values are the string values for each column in the uni ranking table.
     //so below, we a creating an empty object y.
     //iterate through dimensions object, forEach attribute in dimensions, create a linear scale from min-max values of that column variable.
-    let yScale = {}
+    const yScale = {}
     for (i in dimensions) {
       metricName = dimensions[i]
       let yRange = [innerHeight, 0];
@@ -98,8 +103,12 @@
         .range(yRange)
     };
 
+
+
+
+
     // Draw the axis:
-    innerVis.selectAll("axis")
+     let axis = innerVis.selectAll("axis")
       // For each dimension of the dataset, add a group element:
       .data(dimensions)
       .enter()
@@ -110,10 +119,35 @@
       .each(function (d) { d3.select(this).call(d3.axisLeft().scale(yScale[d])); })
       // Add axis title
       .append("text")
-      .style("text-anchor", "middle")
-      .attr("y", -10)
       .text(function (d) { return d; })
+      .attr("y", -10)
+      .style("text-anchor", "middle")
       .style("fill", "black")
+      .call(d3.drag()
+        .on("start", function (d) {
+          console.log("hello");
+          dragging[d] = xScale(d);
+          background.attr("visibility", "hidden");
+        })
+        .on("drag", function (d) {
+          dragging[d] = Math.min(0, Math.max(0, d3.event.x));
+          foreground.attr("d", path);
+          dimensions.sort(function (a, b) { return position(a) - position(b); });
+          xScale.domain(dimensions);
+          console.log(d3.event.x);
+          axis.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+        })
+        .on("end", function (d) {
+          delete dragging[d];
+          transition(d3.select(this)).attr("transform", "translate(" + xScale(d) + ")");
+          transition(foreground).attr("d", path);
+          background
+            .attr("d", path)
+            .transition()
+            .delay(500)
+            .duration(0)
+            .attr("visibility", null);
+        }));
 
     // The path function take a row of DB input, and return x and y coordinates of the line to draw for this raw.
     function path(d) {
@@ -127,33 +161,58 @@
         }));
     }
 
+    function position(d) {
+      var v = dragging[d];
+      return v == null ? xScale(d) : v;
+    }
+
+    function transition(g) {
+      return g.transition().duration(500);
+    }
+
+    // Add grey background lines for context.
+    background = innerVis.append("g")
+      .attr("class", "background")
+      .selectAll("path")
+      .data(data)
+      .enter().append("path")
+      .attr("d", path);
+
+    // Add blue foreground lines for focus.
+    foreground = innerVis.append("g")
+      .attr("class", "foreground")
+      .selectAll("path")
+      .data(data)
+      .enter().append("path")
+      .attr("d", path);
+
     let linesG = innerVis
       .selectAll('myPath')
       .data(data);
 
     // Draw the lines
-    linesG
-      .enter()
-      .append("path")
-      .merge(linesG)
-      .attr("d", path)
-      // .style("fill", "none")
-      .attr("class", "unSelected")
-      // .style("opacity", 0.3)
-      .on('click', handleClick)
-      .on("mouseover", function (d) {
-        div.transition()
-          .duration(200)
-          .style("opacity", .9);
-        div.html(d.name)
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-      })
-      .on("mouseout", function (d) {
-        div.transition()
-          .duration(500)
-          .style("opacity", 0);
-      });
+    // linesG
+    //   .enter()
+    //   .append("path")
+    //   .merge(linesG)
+    //   .attr("d", path)
+    //   // .style("fill", "none")
+    //   .attr("class", "unSelected")
+    //   // .style("opacity", 0.3)
+    //   // .on('click', handleClick)
+    //   // .on("mouseover", function (d) {
+    //   //   div.transition()
+    //   //     .duration(200)
+    //   //     .style("opacity", .9);
+    //   //   div.html(d.name)
+    //   //     .style("left", (d3.event.pageX) + "px")
+    //   //     .style("top", (d3.event.pageY - 28) + "px");
+    //   // })
+    //   // .on("mouseout", function (d) {
+    //   //   div.transition()
+    //   //     .duration(500)
+    //   //     .style("opacity", 0);
+    //   // });
 
     linesG
       .exit()

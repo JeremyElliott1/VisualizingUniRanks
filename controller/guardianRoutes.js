@@ -1,5 +1,21 @@
 const db = require('../util/database.js')
 
+getGuardianDragPage = (req, res, next) => {
+  db.connection.query('SELECT * FROM guardian_overall')
+    .then(([rowData, columnData]) => {
+      let universities = [];
+      rowData.forEach(rowValue => {
+        universities.push(rowValue);
+      });
+      universities = JSON.stringify(universities);
+      res.render('parallelDrag.ejs', {
+        pageTitle: 'Drag Test',
+        passedUniData: universities,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 getGuardianTeachingScorePage = (req, res, next) => {
   db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
@@ -51,6 +67,7 @@ getParallelPlotPage = (req, res, next) => {
 };
 
 module.exports = {
+  getGuardianDragPage: getGuardianDragPage,
   getGuardianTeachingScorePage: getGuardianTeachingScorePage,
   getCareerProspectsPage: getCareerProspectsPage,
   getParallelPlotPage: getParallelPlotPage

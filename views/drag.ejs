@@ -43,8 +43,10 @@
   //Click Handler
   function handleClick(d, i) {
     d3.select(this).classed("selected", !d3.select(this).classed("selected"));
-    console.log(d.class);
+    console.log(this);
   }
+
+  pathCoordinates = [];
 
   const drawChart = (data) => {
 
@@ -59,8 +61,39 @@
     const innerHeight = svgHeight - margin.top - margin.bottom;
     const innerWidth = svgWidth - margin.left - margin.right;
 
+
     const innerVis = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+    //add brushing
+    svg.call(d3.brush()
+      .extent([[0, 0], [innerWidth, innerHeight]]))
+      .on("start brush", updateChartBrush);
+
+    // A function that return TRUE or FALSE according if a dot is in the selection or not
+    function isBrushed(brushCoords, path) {
+      var x0 = brushCoords[0][0],
+        x1 = brushCoords[1][0],
+        y0 = brushCoords[0][1],
+        y1 = brushCoords[1][1];
+
+      console.log(path);
+    }
+
+    function updateChartBrush() {
+      extent = d3.event.selection; //Gets the coordinates of the area selected E.g. [ [12,11], [132,178]]
+      //where [12,11] is initial click to start the area selection and [132,178] is the end of the area selected.
+      console.log(extent);
+
+      linesG.classed("selected", (d) => {
+        return isBrushed(extent, path);
+      });
+    }
+
+    // ENSURE TO ADD THIS BELOW TO STOP THE ONCLICK ERRORS!
+    function brushstart() {
+      d3.event.sourceEvent.stopPropagation();
+    }
 
 
     // Extract the list of dimensions we want to keep in the plot, all except "name".
@@ -119,11 +152,15 @@
     function path(d) {
       return d3.line()
         .defined(function (d) { return d[1] != null; })
-        (dimensions.map(function (column) {
-          if (d[column] === "") {
-            return [xScale(column, null)]
+        (dimensions.map(function (dimension) {
+          if (d[dimension] === "") {
+            return [xScale(dimension, null)]
           }
-          return [xScale(column), yScale[column](d[column])];
+          if (d.name === 'Kent') {
+          console.log([xScale(dimension), yScale[dimension](d[dimension])]);
+          pathCoordinates.push([xScale(dimension), yScale[dimension](d[dimension])]);
+          }
+          return [xScale(dimension), yScale[dimension](d[dimension])];
         }));
     }
 
@@ -131,15 +168,16 @@
       .selectAll('myPath')
       .data(data);
 
+    // linesG.log(path(d));
+
+
     // Draw the lines
     linesG
       .enter()
       .append("path")
       .merge(linesG)
       .attr("d", path)
-      // .style("fill", "none")
       .attr("class", "unSelected")
-      // .style("opacity", 0.3)
       .on('click', handleClick)
       .on("mouseover", function (d) {
         div.transition()
@@ -158,6 +196,7 @@
     linesG
       .exit()
       .remove();
+
   }
   drawChart(uniData);
 
