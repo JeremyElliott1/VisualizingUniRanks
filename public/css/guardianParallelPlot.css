@@ -1,5 +1,9 @@
-h1 {
+h1 #providerTitle {
   color: rgb(23, 117, 240);
+}
+
+h1 {
+  color: black;
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 100px;
   font-weight: bold;
@@ -21,20 +25,6 @@ div.tooltip {
   pointer-events: none;			
 } 
 
-.background path {
-  fill: none;
-  stroke: #ddd;
-  shape-rendering: crispEdges;
-}
-
-.unSelected {
-  stroke: darkblue;
-  fill: none;
-  opacity: 0.3;
-}
-
-
-
 #data{
   display: none;
 }
@@ -46,9 +36,14 @@ div.tooltip {
   width: 50%;
 }
 
-.foreground {
+.foreground path {
   fill: none;
-  stroke: steelblue;
+  stroke: rgb(23, 117, 240);
+}
+.background path {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
 }
 
 .foreground .highlighted {
@@ -62,23 +57,11 @@ svg {
   font: 10px sans-serif;
 }
 
-.background path {
-  fill: none;
-  stroke: #ddd;
-  shape-rendering: crispEdges;
-}
-
-.foreground path {
-  fill: none;
-  stroke: steelblue;
-}
-
 .brush .extent {
   fill-opacity: .3;
   stroke: #f6ff;
   shape-rendering: crispEdges;
 }
-
 .axis line,
 .axis path {
   fill: none;

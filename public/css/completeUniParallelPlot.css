@@ -1,5 +1,9 @@
+h1 #providerTitle {
+  color: rgb(62, 150, 81);
+}
+
 h1 {
-  color: rgb(10, 130, 8);
+  color: black;
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 100px;
   font-weight: bold;
@@ -21,18 +25,51 @@ div.tooltip {
   pointer-events: none;			
 } 
 
-.unSelected {
-  stroke: rgb(10, 130, 8);
-  fill: none;
-  opacity: 0.3;
+#data{
+  display: none;
 }
 
-.selected {
+#buttonPannel{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.foreground path {
+  fill: none;
+  stroke: rgb(62, 150, 81);
+}
+.background path {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+}
+
+.foreground .highlighted {
   stroke: rgb(240, 23, 23);
+  fill: none;
   opacity: 1;
   stroke-width: 5px;
 }
 
-#data{
-  display: none;
+svg {
+  font: 10px sans-serif;
+}
+
+.brush .extent {
+  fill-opacity: .3;
+  stroke: #f6ff;
+  shape-rendering: crispEdges;
+}
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  cursor: move;
 }
