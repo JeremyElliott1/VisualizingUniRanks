@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <h1><span id="providerTitle">The Guardian </span>Overall Ranking</h1>
 
   <svg id="parallelChart" height="780" width="1800"></svg>
@@ -21,11 +20,9 @@
   </div>
 
   <div id="data" data-xaxis="<%= passedUniData %>"></div>
-
 </body>
 
 <script>
-
   //Obtain data from #data div
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
@@ -222,7 +219,6 @@
       }) ? null : "none";
     });
   }
-
 </script>
 
 </html>
