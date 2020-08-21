@@ -1,6 +1,6 @@
 const db = require('../util/database.js')
 
-getCompleteUniOverallScorePage = (req, res, next) => {
+getTimesOverallPage = (req, res, next) => {
   db.connection.query('SELECT * FROM times_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -9,7 +9,7 @@ getCompleteUniOverallScorePage = (req, res, next) => {
       });
       universities = JSON.stringify(universities);
       res.render('completeUniParallelPlot.ejs', {
-        pageTitle: 'Uni Ranking Vis, Sunday Times',
+        pageTitle: 'SundayTimes',
         passedUniData: universities,
       });
     })
@@ -17,5 +17,5 @@ getCompleteUniOverallScorePage = (req, res, next) => {
 };
 
 module.exports = {
-  getCompleteUniOverallScorePage: getCompleteUniOverallScorePage
+  getTimesOverallPage: getTimesOverallPage
 };
