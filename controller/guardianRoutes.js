@@ -1,54 +1,5 @@
 const db = require('../util/database.js')
 
-getGuardianDragPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardian_overall')
-    .then(([rowData, columnData]) => {
-      let universities = [];
-      rowData.forEach(rowValue => {
-        universities.push(rowValue);
-      });
-      universities = JSON.stringify(universities);
-      res.render('parallelDrag.ejs', {
-        pageTitle: 'Drag Test',
-        passedUniData: universities,
-      });
-    })
-    .catch((err) => console.log(err));
-};
-
-getGuardianTeachingScorePage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardian_overall')
-    .then(([rowData, columnData]) => {
-      let universities = [];
-      rowData.forEach(rowValue => {
-        universities.push(rowValue);
-      });
-      universities = JSON.stringify(universities);
-      res.render('guardianTeachingScore.ejs', {
-        pageTitle: 'TheGuardian Teaching Scores',
-        passedUniData: universities,
-      });
-    })
-    .catch((err) => console.log(err));
-};
-
-getCareerProspectsPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardian_overall')
-    .then(([rowData, columnData]) => {
-      let universities = [];
-      rowData.forEach(rowValue => {
-        universities.push(rowValue);
-      });
-      universities = JSON.stringify(universities);
-      res.render('guardianCareerProspects.ejs', {
-        pageTitle: 'The Guardian Career Prospects',
-        passedUniData: universities,
-      });
-    })
-    .catch((err) => console.log(err));
-
-};
-
 getParallelPlotPage = (req, res, next) => {
   db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
@@ -58,17 +9,30 @@ getParallelPlotPage = (req, res, next) => {
       });
       universities = JSON.stringify(universities);
       res.render('guardianParallelPlot.ejs', {
-        pageTitle: 'Parallel Plot',
+        pageTitle: 'TheGuardian Overview',
         passedUniData: universities,
       });
     })
     .catch((err) => console.log(err));
+};
 
+getBarChartsPage = (req, res, next) => {
+  db.connection.query('SELECT * FROM guardian_overall')
+    .then(([rowData, columnData]) => {
+      let universities = [];
+      rowData.forEach(rowValue => {
+        universities.push(rowValue);
+      });
+      universities = JSON.stringify(universities);
+      res.render('guardianMetricBarCharts.ejs', {
+        pageTitle: 'TheGuardian Metrics View',
+        passedUniData: universities,
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 module.exports = {
-  getGuardianDragPage: getGuardianDragPage,
-  getGuardianTeachingScorePage: getGuardianTeachingScorePage,
-  getCareerProspectsPage: getCareerProspectsPage,
-  getParallelPlotPage: getParallelPlotPage
+  getParallelPlotPage: getParallelPlotPage,
+  getBarChartsPage: getBarChartsPage,
 };

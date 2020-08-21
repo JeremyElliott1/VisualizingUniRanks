@@ -7,43 +7,99 @@
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <link rel="stylesheet" href="/css/guardianDefault.css">
+
 </head>
 
 <body>
+  <h1>Guardian Ranking by Scoring Metric Ranking</h1>
 
-  <h1>Guardian Overall Ranking</h1>
+  <div id="menus">
+    <label for="metricMenu">Select Scoring Metric:</label>
 
-  <div id="data" data-xaxis="<%= passedUniData %>">
+    <select id='metricDropDown' name="metricMenu">
+    </select>
   </div>
 
   <svg id="chart" height="780" width="1620"></svg>
 
-  <div>
-  </div>
-
+  <div id="data" data-xaxis="<%= passedUniData %>"></div>
 </body>
+
 <script>
-
-
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
-  const sortData = (data, variable) => {
-    let sortedArray = data;
-    sortedArray.sort((a, b) => {
-      //Two ways to access a objects variable, dot notation and bracket notation.
-      //if attribute string is stored in a variable and not explicitly stated.  
-      if (a[variable] < b[variable]) {
-        return 1;
-      } else {
-        return -1;
+  let selection = "rank2017";
+  let dimensions = [];
+  let options = [];
+
+  //Extracts dimensions of received Uni Data
+  //Creates an array of option obj containg a value & label properties
+  // value property corresponds with MySQL headers
+  // label property mutate SQL headers to be more ledgible (Adding spaces + Caps)
+  const setMenuOptions = (d) => {
+    dimensions = d3.keys(uniData[0]).filter(function (d) {
+      if (d !== "name") {
+        dimensions
+        return d;
       }
     })
-    return sortedArray;
+    dimensions.forEach(dimension => {
+      let value = dimension;
+      let label = dimension.replace(/([A-Z])/g, ' $1')
+        .replace(/^./, function (str) { return str.toUpperCase(); })
+      let option = { value, label };
+      option[value, label];
+      options.push(option);
+    })
+  }
+  setMenuOptions();
+  const dropDown = d3.select("#metricDropDown");
+
+  dropDown.selectAll('option')
+    .data(options)
+    .enter()
+    .append('option')
+    .attr('value', function (d) { return d.value })
+    .text(function (d) { return d.label });
+
+  d3.select("#metricDropDown").on("change", change)
+
+  function change() {
+    selection = document.getElementById("metricDropDown").value;
+    sortData(uniData, selection)
+    render(uniData, selection);
   }
 
-  sortedData = sortData(uniData, 'averageteachingscore');
+  //Sorts Data in order
+  //Checks for reverse scoring with if statements
+  const sortData = (data, variable) => {
+    let array = data;
+    if (variable.includes('rank') || variable.includes('Ratio')) {
+      array.sort((a, b) => {
+        if (a[variable] < b[variable]) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
+    }
+    else {
+      array.sort((a, b) => {
+        //Two ways to access a objects variable, dot notation and bracket notation.
+        //if attribute string is stored in a variable and not explicitly stated.  
+        if (a[variable] < b[variable]) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+    }
+    return array;
+  }
+
+  let sortedData = sortData(uniData, selection);
 
   const svg = d3.select('#chart');
 
@@ -59,12 +115,13 @@
     d3.select(this).classed("selected", !d3.select(this).classed("selected"));
   }
 
-  const render = (data) => {
-    d3.selectAll("#chart > *").remove();
+  const render = (data, selection) => {
 
+    d3.selectAll("#chart > *").remove();
     //Value Accessors to avoid duplication of code, and helps when wanting to change the arguments passed below:
+
     const xValue = (d) => d.name;
-    const yValue = (d) => d.averageteachingscore;
+    const yValue = (d) => d[selection];
 
     const margin = {
       top: 60,
@@ -100,7 +157,7 @@
     const yAxisG = innerVis.append('g')
       .call(yAxis);
     yAxisG.append('text')
-      .text('Avereage Teaching Score')
+      .text('Career Prospects')
       .attr('fill', 'black')
       .attr('x', -45)
       .attr('y', innerHeight / 2);
@@ -146,9 +203,9 @@
     innerVis.append('text')
       .attr('x', innerWidth / 2)
       .attr('y', -margin.top / 2)
-      .text('University Average Teaching Scores');
+      .text('University Career Prospects');
   };
-  render(uniData);
+  render(sortedData, selection);
 </script>
 
 </html>

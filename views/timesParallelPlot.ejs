@@ -28,12 +28,12 @@
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData);
 
-  //set SVG selection & get SVG dimensions
+  //set SVG selection & get SVG height & width
   const svg = d3.select('#parallelChart');
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
-  // set InnerVis dimensions
+  // set InnerVis height & width
   const margin = {
     top: 25,
     right: 0,

@@ -16,9 +16,8 @@ app.set('views', 'views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/timesPCP', timesRoutes.getParallelPlotPage);
-app.use('/careerprospects', guardianRoutes.getCareerProspectsPage);
+app.use('/guardianBar', guardianRoutes.getBarChartsPage);
 app.use('/guardianPCP', guardianRoutes.getParallelPlotPage);
-app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage);
 app.use('/completeUniPCP', completeUniRoutes.getCompleteUniOverallScorePage);
 app.use('/', (req, res, next) => {
   res.render('home.ejs');
