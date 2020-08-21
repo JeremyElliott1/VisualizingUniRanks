@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <h1>Guardian Ranking by Scoring Metric Ranking</h1>
+  <h1>Guardian Ranking by Individual Scoring Metric</h1>
 
   <div id="menus">
     <label for="metricMenu">Select Scoring Metric:</label>
@@ -203,7 +203,7 @@
     innerVis.append('text')
       .attr('x', innerWidth / 2)
       .attr('y', -margin.top / 2)
-      .text('University Career Prospects');
+      .text(selection);
   };
   render(sortedData, selection);
 </script>
