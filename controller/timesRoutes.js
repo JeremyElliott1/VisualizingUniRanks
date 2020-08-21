@@ -1,6 +1,6 @@
 const db = require('../util/database.js')
 
-getTimesOverallPage = (req, res, next) => {
+getParallelPlotPage = (req, res, next) => {
   db.connection.query('SELECT * FROM times_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -17,5 +17,5 @@ getTimesOverallPage = (req, res, next) => {
 };
 
 module.exports = {
-  getTimesOverallPage: getTimesOverallPage
+  getParallelPlotPage: getParallelPlotPage
 };

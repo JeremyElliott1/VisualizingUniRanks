@@ -15,7 +15,7 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/timesPCP', timesRoutes.getTimesOverallPage);
+app.use('/timesPCP', timesRoutes.getParallelPlotPage);
 app.use('/careerprospects', guardianRoutes.getCareerProspectsPage);
 app.use('/guardianPCP', guardianRoutes.getParallelPlotPage);
 app.use('/teachingScore', guardianRoutes.getGuardianTeachingScorePage);
