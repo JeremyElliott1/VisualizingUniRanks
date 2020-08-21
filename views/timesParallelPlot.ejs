@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<meta charset="utf-8">
+<style>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %></title>
-  <script src="//d3js.org/d3.v3.min.js"></script>
-  <link rel="stylesheet" href="/css/guardianParallelPlot.css">
-</head>
+</style>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<link rel="stylesheet" href="/css/guardianParallelPlot.css">
 
 <body>
 
   <h1><span id="providerTitle">The Guardian </span>Overall Ranking</h1>
+  <div id="data" data-xaxis="<%= passedUniData %>"></div>
 
   <svg id="parallelChart" height="780" width="1800"></svg>
-
   <div id="buttonPannel">
     <button><a href="/careerprospects">Carrer Prospects</a></button>
     <button><a href="/teachingScore">Average Teaching Scores</a></button>
   </div>
 
-  <div id="data" data-xaxis="<%= passedUniData %>"></div>
-
 </body>
+
+
 
 <script>
 
-  //Obtain data from #data div
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
-  uniData = JSON.parse(uniData);
+  uniData = JSON.parse(uniData); // Need to convert from JSON obj to String to manipulate the array of uniData objects.
 
-  //set SVG selection & get SVG dimensions
   const svg = d3.select('#parallelChart');
+
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 
-  // set InnerVis dimensions
   const margin = {
     top: 25,
     right: 0,
@@ -46,9 +41,14 @@
   const height = svgHeight - margin.top - margin.bottom;
   const width = svgWidth - margin.left - margin.right;
 
-  //Move innerVis by top & left margin
-  const innerVis = svg.append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+  let x = d3.scale.ordinal().rangePoints([0, width], 1);
+  let y = {};
+  let dragging = {};
+
+  let line = d3.svg.line();
+  let axis = d3.svg.axis().orient("left");
+  let background;
+  let foreground;
 
   //Create div for tooltip
   let div = d3.select("body")
@@ -62,15 +62,15 @@
     console.log(d.class);
   }
 
-  //Helper objects used to make code more ledgible & easier to maintain
-  let x = d3.scale.ordinal().rangePoints([0, width], 1);
-  let y = {};
-  let dragging = {};
+  const innerVis = svg.append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  let line = d3.svg.line();
-  let axis = d3.svg.axis().orient("left");
-  let background;
-  let foreground;
+  let dimensions = d3.keys(data[0]).filter(function (d) {
+    if (d !== "name") {
+      return d
+    }
+  });
+
 
   // Extract the list of dimensions and create a scale for each.
   x.domain(dimensions = d3.keys(uniData[0]).filter(function (dimension) {
@@ -91,7 +91,7 @@
       .range(yRange));
   }));
 
-  // Draw background Lines
+  // Add grey background lines for context.
   background = innerVis.append("g")
     .attr("class", "background")
     .selectAll("path")
@@ -114,7 +114,7 @@
         .style("opacity", 0);
     });
 
-  // Draw foreground Lines
+  // Add blue foreground lines for focus.
   foreground = innerVis.append("g")
     .attr("class", "foreground")
     .selectAll("path")
@@ -137,7 +137,8 @@
         .style("opacity", 0);
     });
 
-  // For each dimension create a group element which contains drag & drop functionality
+
+  // Add a group element for each dimension.
   let g = innerVis.selectAll(".dimension")
     .data(dimensions)
     .enter().append("g")
@@ -168,7 +169,7 @@
           .attr("visibility", null);
       }));
 
-  //Adds a group to draw scale and title
+  // Add an axis and title.
   g.append("g")
     .attr("class", "axis")
     .each(function (d) { d3.select(this).call(axis.scale(y[d])); })
@@ -177,7 +178,7 @@
     .attr("y", -9)
     .text(function (d) { return d; });
 
-  //Adds a group to add and store a brush for each scale.
+  // Add and store a brush for each axis.
   g.append("g")
     .attr("class", "brush")
     .each(function (d) {
@@ -191,12 +192,12 @@
     let v = dragging[d];
     return v == null ? x(d) : v;
   }
-  //Returns animated 0.5sec transition for a given selection
+
   function transition(g) {
     return g.transition().duration(500);
   }
 
-  //Returns path coordinates along each scale for each data item
+  // Returns the path for a given data point.
   function path(d) {
     return line.defined(function (d) { return d[1] != null; })(dimensions.map(function (p) {
 
@@ -207,7 +208,6 @@
     }))
   }
 
-  //Ensures that a mousedown event is not followed by a click event so the Onclick listner is not invoked
   function brushstart() {
     d3.event.sourceEvent.stopPropagation();
   }
@@ -223,6 +223,15 @@
     });
   }
 
-</script>
+  // Handles a brush event, toggling the display of foreground lines.
+  function brush() {
+    let actives = dimensions.filter(function (p) { return !y[p].brush.empty(); }),
+      extents = actives.map(function (p) { return y[p].brush.extent(); });
+    foreground.style("display", function (d) {
+      return actives.every(function (p, i) {
+        return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+      }) ? null : "none";
+    });
+  }
 
-</html>
+</script>

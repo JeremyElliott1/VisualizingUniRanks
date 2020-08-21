@@ -1,7 +1,7 @@
 const db = require('../util/database.js')
 
 getCompleteUniOverallScorePage = (req, res, next) => {
-  db.connection.query('SELECT * FROM complete_university_guide_overall')
+  db.connection.query('SELECT * FROM times_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
@@ -9,7 +9,7 @@ getCompleteUniOverallScorePage = (req, res, next) => {
       });
       universities = JSON.stringify(universities);
       res.render('completeUniParallelPlot.ejs', {
-        pageTitle: 'Uni Ranking Vis, CompleteUniGuide',
+        pageTitle: 'Uni Ranking Vis, Sunday Times',
         passedUniData: universities,
       });
     })
