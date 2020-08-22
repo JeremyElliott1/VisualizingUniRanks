@@ -30,7 +30,8 @@
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
-  let selection = "rank";
+  let selection = "rank2020";
+  let selectionText;
   let dimensions = [];
   let options = [];
 
@@ -68,6 +69,7 @@
 
   function change() {
     selection = document.getElementById("metricDropDown").value;
+    selectionPosition = document.getElementById("metricDropDown").selectedIndex;
     sortData(uniData, selection)
     render(uniData, selection);
   }
@@ -157,7 +159,7 @@
     const yAxisG = innerVis.append('g')
       .call(yAxis);
     yAxisG.append('text')
-      .text('Career Prospects')
+      .text(options[selectionPosition].label)
       .attr('fill', 'black')
       .attr('x', -45)
       .attr('y', innerHeight / 2);
@@ -199,12 +201,8 @@
 
     barsG.exit().
       remove();
-
-    innerVis.append('text')
-      .attr('x', innerWidth / 2)
-      .attr('y', -margin.top / 2)
-      .text(selection);
   };
+  change();
   render(sortedData, selection);
 </script>
 
