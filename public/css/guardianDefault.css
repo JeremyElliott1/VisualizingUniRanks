@@ -1,17 +1,12 @@
-h1 {
+h1 #providerTitle {
   color: rgb(23, 117, 240);
+}
+
+h1 {
+  color: black;
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 50px;
   font-weight: bold;
-  letter-spacing: -1px;
-  line-height: 1;
-  text-align: center;
-}
-
-h2 {
-  color: rgb(23, 117, 240);
-  font-family: 'Helvetica Neue', sans-serif;
-  font-size: 40px;
   letter-spacing: -1px;
   line-height: 1;
   text-align: center;
