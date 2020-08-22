@@ -1,0 +1,36 @@
+h1 #providerTitle {
+  color: rgb(62, 150, 81);;
+}
+
+h1 {
+  color: black;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+}
+
+div.tooltip {	
+  position: absolute;			
+  text-align: center;			
+  width: 75px;					
+  height: 38px;					
+  padding: 2px;				
+  font: 12px sans-serif;		
+  background: lightsteelblue;	
+  border: 0px;		
+  border-radius: 8px;			
+  pointer-events: none;			
+} 
+
+.unSelected {
+  fill: rgb(62, 150, 81);;
+}
+.selected {
+  fill: rgb(240, 23, 23);
+}
+#data{
+  display: none;
+}

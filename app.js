@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/timesPCP', timesRoutes.getParallelPlotPage);
 app.use('/guardianBar', guardianRoutes.getBarChartsPage);
 app.use('/guardianPCP', guardianRoutes.getParallelPlotPage);
-app.use('/completeUniPCP', completeUniRoutes.getCompleteUniOverallScorePage);
+app.use('/completeUniBar', completeUniRoutes.getBarChartsPage);
+app.use('/completeUniPCP', completeUniRoutes.getParallelPlotPage);
 app.use('/', (req, res, next) => {
   res.render('home.ejs');
 });

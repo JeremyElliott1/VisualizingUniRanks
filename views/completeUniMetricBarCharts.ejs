@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <link rel="stylesheet" href="/css/guardianDefault.css">
+  <link rel="stylesheet" href="/css/completeUniBarCharts.css">
 
 </head>
 
 <body>
-  <h1><span id="providerTitle">The Guardian</span> Ranking by Individual Scoring Metric</h1>
+  <h1><span id="providerTitle">The Complete University Guide</span> Ranking by Individual Scoring Metric</h1>
 
   <div id="menus">
     <label for="metricMenu">Select Scoring Metric:</label>
@@ -30,8 +30,7 @@
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // NEED TO Unconvert from JSON obj to String for to manipulate the array.
 
-  let selection = "rank2017";
-  let selectionText;
+  let selection = "rank";
   let dimensions = [];
   let options = [];
 
@@ -69,11 +68,9 @@
 
   function change() {
     selection = document.getElementById("metricDropDown").value;
-    selectionPosition = document.getElementById("metricDropDown").selectedIndex;
     sortData(uniData, selection)
     render(uniData, selection);
   }
-
 
   //Sorts Data in order
   //Checks for reverse scoring with if statements
@@ -103,8 +100,6 @@
   }
 
   let sortedData = sortData(uniData, selection);
-
-
 
   const svg = d3.select('#chart');
 
@@ -162,7 +157,7 @@
     const yAxisG = innerVis.append('g')
       .call(yAxis);
     yAxisG.append('text')
-      .text(options[selectionPosition].label)
+      .text('Career Prospects')
       .attr('fill', 'black')
       .attr('x', -45)
       .attr('y', innerHeight / 2);
@@ -204,8 +199,12 @@
 
     barsG.exit().
       remove();
+
+    innerVis.append('text')
+      .attr('x', innerWidth / 2)
+      .attr('y', -margin.top / 2)
+      .text(selection);
   };
-  change();
   render(sortedData, selection);
 </script>
 
