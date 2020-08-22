@@ -1,5 +1,5 @@
 h1 #providerTitle {
-  color: rgb(62, 150, 81);
+  color: rgb(107, 76, 154);
 }
 
 h1 {
@@ -26,7 +26,7 @@ div.tooltip {
 } 
 
 .unSelected {
-  fill: rgb(62, 150, 81);;
+  fill: rgb(107, 76, 154);
 }
 .selected {
   fill: rgb(240, 23, 23);

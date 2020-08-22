@@ -8,8 +8,24 @@ getParallelPlotPage = (req, res, next) => {
         universities.push(rowValue);
       });
       universities = JSON.stringify(universities);
-      res.render('completeUniParallelPlot.ejs', {
-        pageTitle: 'SundayTimes',
+      res.render('timesParallelPlot.ejs', {
+        pageTitle: 'Sunday Times Uni Rankings',
+        passedUniData: universities,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+getBarChartsPage = (req, res, next) => {
+  db.connection.query('SELECT * FROM times_overall')
+    .then(([rowData, columnData]) => {
+      let universities = [];
+      rowData.forEach(rowValue => {
+        universities.push(rowValue);
+      });
+      universities = JSON.stringify(universities);
+      res.render('timesMetricBarCharts.ejs', {
+        pageTitle: 'Sunday Times Uni Rankings',
         passedUniData: universities,
       });
     })
@@ -17,5 +33,6 @@ getParallelPlotPage = (req, res, next) => {
 };
 
 module.exports = {
-  getParallelPlotPage: getParallelPlotPage
+  getParallelPlotPage: getParallelPlotPage,
+  getBarChartsPage: getBarChartsPage
 };

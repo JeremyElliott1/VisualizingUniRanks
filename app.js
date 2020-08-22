@@ -15,6 +15,7 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/timesBar', timesRoutes.getBarChartsPage);
 app.use('/timesPCP', timesRoutes.getParallelPlotPage);
 app.use('/guardianBar', guardianRoutes.getBarChartsPage);
 app.use('/guardianPCP', guardianRoutes.getParallelPlotPage);
