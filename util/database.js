@@ -14,7 +14,8 @@ const singleConnection = mysql.createConnection({
   user: 'root',
   database: 'guardianleaguetable',
   password: 'Sponge123!',
-  multipleStatements: true
+  multipleStatements: true,
+  debug: false
 })
 
 module.exports = {

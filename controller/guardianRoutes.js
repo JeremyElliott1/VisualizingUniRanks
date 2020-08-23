@@ -48,8 +48,33 @@ getComparisonPage = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+getNewComparisonPage = (req, res, next) => {
+  db.singleConnection.connect();
+  db.singleConnection.query('SELECT * FROM guardian_subject_ranks; SELECT * FROM allranksguardiancsv', function (error, results, fields) {
+    if (error) {
+      throw error;
+    }
+    //THIS RESULTS VALUE MUST BE ASSIGNED OUTSIDE ITS CODE BLOCK
+    console.log(results.length)
+    console.log(results[1].length)
+    let guardianData = JSON.stringify(results[0]);
+    let completeUniData = JSON.stringify(results[1]);
+
+    repsond(res, guardianData, completeUniData);
+  });
+};
+
+function repsond(res, guardianData, completeUniData) {
+  res.render('comparisonGuardian.ejs', {
+    pageTitle: "hello",
+    passedUniData: guardianData,
+    completeUniData: completeUniData
+  })
+};
+
 module.exports = {
   getParallelPlotPage: getParallelPlotPage,
   getBarChartsPage: getBarChartsPage,
-  getComparisonPage: getComparisonPage
+  getComparisonPage: getComparisonPage,
+  getNewComparisonPage: getNewComparisonPage
 };
