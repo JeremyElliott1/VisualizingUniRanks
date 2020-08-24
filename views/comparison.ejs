@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <button id="buttonHome"><a href="/">Home</a></button>
   <h1>Comparison Rankings</h1>
 
   <div id="menuContainer">
@@ -19,27 +20,16 @@
 
   <svg id="parallelChart" height="1080" width="1800"></svg>
 
-  <div id="buttonPannel">
-    <button><a href="/guardianBar">View Metrics in Detail</a></button>
-  </div>
-
-  <div id="data" data-xaxis="<%= passedUniData %>"></div>
-
-
-
+  <div id="guardian" data-xaxis="<%= passedUniData %>"></div>
+  <div id="completeUni" data-xaxis="<%= completeUniData %>"></div>
 </body>
 
 <script>
-  //Obtain data from #data div
-  const dataDiv = document.querySelector('#data');
-  let uniData = dataDiv.dataset.xaxis;
-  uniData = JSON.parse(uniData);
-
-  // const ComplteUniDataDiv = document.querySelector('#completeUni');
-  // let completeUniData = ComplteUniDataDiv.dataset.xaxis;
-  // completeUniData = JSON.parse(completeUniData);
-
-  // console.log(completeUniData);
+  //get & convert Data from JSON format
+  const dataDiv = document.querySelector('#guardian');
+  let uniData = JSON.parse(dataDiv.dataset.xaxis);
+  const ComplteUniDataDiv = document.querySelector('#completeUni');
+  let completeUniData = JSON.parse(ComplteUniDataDiv.dataset.xaxis);
 
   //set SVG selection & get SVG height & width
   const svg = d3.select('#parallelChart');
@@ -47,18 +37,8 @@
   const svgWidth = parseFloat(svg.attr('width'));
 
 
-
-
-
-  let selection = "Aberdeen";
-  let selectedPosition = 0;
+  //gets all university names, stores it UniNames array
   let uniNames = [];
-  let options = [];
-
-  //Extracts dimensions of received Uni Data
-  //Creates an array of option obj containg a value & label properties
-  // value property corresponds with MySQL headers
-  // label property mutate SQL headers to be more ledgible (Adding spaces + Caps)
   const setMenuOptions = (d) => {
     uniData.forEach(uniRow => {
       uniNames.push(uniRow.name);
@@ -66,6 +46,7 @@
   };
   setMenuOptions();
 
+  //set Drop Down Menu based on passed in Uni Names
   const dropDown = d3.select("#universityDropDown");
   dropDown.selectAll('option')
     .data(uniNames)
@@ -76,13 +57,12 @@
 
   dropDown.on("change", change);
 
+  let selectedPosition;
   function change() {
-    selection = document.getElementById("universityDropDown").value;
     selectedPosition = document.getElementById("universityDropDown").selectedIndex;
     deletePreviousChart();
-    render(uniData);
+    render(uniData, completeUniData);
   }
-
 
   // set InnerVis height & width
   const margin = {
@@ -104,20 +84,40 @@
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-  //Click Handler
-  function handleClick(d, i) {
-    d3.select(this).classed("highlighted", !d3.select(this).classed("highlighted"));
-  }
   function deletePreviousChart() {
     svg.selectAll(".completeUni").remove();
     svg.selectAll(".guardian").remove();
     svg.selectAll(".dimension").remove();
   }
 
-  render = (data) => {
+  let completeDimensions = d3.keys(completeUniData[0]).filter(function (dimension) {
+    if (dimension === "name") {
+      return false
+    }
+  });
+
+  render = (data, completeUniData) => {
 
     selectedRow = [data[selectedPosition]];
-    // completeUniRow = [completeUniData[selectedPosition]];
+    completeUniRow = [completeUniData[selectedPosition]];
+
+    selectedGuardianUni = data[selectedPosition];
+    selectedCompleteUni = completeUniData[selectedPosition];
+
+
+    console.log(data[0]);
+
+    removeEmptyProp = (obj) => {
+      for (let property in obj) {
+        if (obj[property] === "") {
+          delete obj[property];
+        }
+      }
+    }
+
+    cleanedGuardianUni = removeEmptyProp(selectedGuardianUni);
+    cleanedGuardianUni = Object.assign({}, selectedGuardianUni);
+    console.log(cleanedGuardianUni)
 
 
 
@@ -132,7 +132,7 @@
     let foreground = null;
 
     // Extract the list of dimensions and create a scale for each.
-    x.domain(dimensions = d3.keys(data[0]).filter(function (dimension) {
+    x.domain(dimensions = d3.keys(selectedGuardianUni).filter(function (dimension) {
       if (dimension === "name") {
         return false
       }
@@ -146,30 +146,27 @@
         .range([0, height]));
     }));
 
-    console.log(dimensions);
-
-    // // Draw CompleteUni Lines
-    // completeUniLines = innerVis.append("g")
-    //   .attr("class", "completeUni")
-    //   .selectAll("path")
-    //   .data(completeUniRow)
-    //   .enter()
-    //   .append("path")
-    //   .attr("d", path)
-    //   .on('click', handleClick)
-    //   .on("mouseover", function (d) {
-    //     div.transition()
-    //       .duration(200)
-    //       .style("opacity", .9);
-    //     div.html(d.name)
-    //       .style("left", (d3.event.pageX) + "px")
-    //       .style("top", (d3.event.pageY - 28) + "px");
-    //   })
-    //   .on("mouseout", function (d) {
-    //     div.transition()
-    //       .duration(500)
-    //       .style("opacity", 0);
-    //   });
+    // Draw CompleteUni Lines
+    completeUniLines = innerVis.append("g")
+      .attr("class", "completeUni")
+      .selectAll("path")
+      .data(completeUniRow)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .on("mouseover", function (d) {
+        div.transition()
+          .duration(200)
+          .style("opacity", .9);
+        div.html(d.name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+        div.transition()
+          .duration(500)
+          .style("opacity", 0);
+      });
 
     // Draw foreground Lines
     guardianLines = innerVis.append("g")
@@ -179,7 +176,6 @@
       .enter()
       .append("path")
       .attr("d", path)
-      .on('click', handleClick)
       .on("mouseover", function (d) {
         div.transition()
           .duration(200)
@@ -203,13 +199,12 @@
       .call(d3.behavior.drag()
         .origin(function (d) { return { x: x(d) }; })
         .on("dragstart", function (d) {
-          console.log(d);
           dragging[d] = x(d);
-          console.log(dragging);
         })
         .on("drag", function (d) {
           dragging[d] = Math.min(width, Math.max(0, d3.event.x));
           guardianLines.attr("d", path);
+          completeUniLines.attr("d", path);
           dimensions.sort(function (a, b) { return position(a) - position(b); });
           x.domain(dimensions);
           g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
@@ -218,25 +213,15 @@
           delete dragging[d];
           transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
           transition(guardianLines).attr("d", path);
+          transition(completeUniLines).attr("d", path);
         }));
 
-
-
-    //Adds a group to add and store a brush for each scale.
-    g.append("g")
-      .attr("class", "brush")
-      .each(function (d) {
-        d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush));
-      })
-      .selectAll("rect")
-      .attr("x", -8)
-      .attr("width", 16);
-
+    //If currently being dragged returns the x coordinates of the dragged scale.
     function position(d) {
       let v = dragging[d];
       return v == null ? x(d) : v;
     }
-    //Returns animated 0.5sec transition for a given selection
+    //Returns animated 0.5sec transition for a param selection 'g'
     function transition(g) {
       return g.transition().duration(500);
     }
@@ -259,26 +244,9 @@
       .append("text")
       .style("text-anchor", "middle")
       .attr("transform", d3.transform('translate(0 -60) rotate(-40)'))
-      // .attr("transform", "translate(50, -80)")
       .text(function (d) { return d; });
-
-    //Ensures that a mousedown event is not followed by a click event so the Onclick listner is not invoked
-    function brushstart() {
-      d3.event.sourceEvent.stopPropagation();
-    }
-
-    // Handles a brush event, toggling the display of foreground lines.
-    function brush() {
-      let actives = dimensions.filter(function (p) { return !y[p].brush.empty(); }),
-        extents = actives.map(function (p) { return y[p].brush.extent(); });
-      guardianLines.style("display", function (d) {
-        return actives.every(function (p, i) {
-          return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-        }) ? null : "none";
-      });
-    }
   }
-  render(uniData);
+  change()
 </script>
 
 </html>

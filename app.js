@@ -17,9 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/comparison', guardianRoutes.getComparisonPage);
 
-app.use('/test', guardianRoutes.getNewComparisonPage);
-
-
 app.use('/timesBar', timesRoutes.getBarChartsPage);
 app.use('/timesPCP', timesRoutes.getParallelPlotPage);
 app.use('/guardianBar', guardianRoutes.getBarChartsPage);

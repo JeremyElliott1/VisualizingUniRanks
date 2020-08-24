@@ -29,11 +29,14 @@ div.tooltip {
   display: none;
 }
 
-#buttonPannel{
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+#buttonHome {
+  color: #bf2020;
+  background: #ffffff;
+  padding: 15px;
+  border: 4px solid #bf2020;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease 0s;
 }
 
 .guardian path {
@@ -41,30 +44,20 @@ div.tooltip {
   stroke: rgb(23, 117, 240);
   stroke-width: 6px;
   stroke-opacity: 0.5;
+  stroke-linecap: round;
 }
 .completeUni path {
   fill: none;
   stroke: rgb(62, 150, 81);
   stroke-width: 6px;
-  stroke-opacity: 0.5;
-}
-
-.guardian .highlighted {
-  stroke: rgb(240, 23, 23);
-  fill: none;
-  opacity: 1;
-  stroke-width: 5px;
+  stroke-opacity: 1;
+  stroke-linecap: round;
 }
 
 svg {
   font: 10px sans-serif;
 }
 
-.brush .extent {
-  fill-opacity: .3;
-  stroke: #f6ff;
-  shape-rendering: crispEdges;
-}
 .axis line,
 .axis path {
   fill: none;

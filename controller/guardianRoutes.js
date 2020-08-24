@@ -33,24 +33,8 @@ getBarChartsPage = (req, res, next) => {
 };
 
 getComparisonPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM guardian_subject_ranks')
-    .then(([rowData, columnData]) => {
-      let universities = [];
-      rowData.forEach(rowValue => {
-        universities.push(rowValue);
-      });
-      universities = JSON.stringify(universities);
-      res.render('comparisonGuardian.ejs', {
-        pageTitle: 'TheGuardian All Subject Ranks',
-        passedUniData: universities,
-      });
-    })
-    .catch((err) => console.log(err));
-};
-
-getNewComparisonPage = (req, res, next) => {
   db.singleConnection.connect();
-  db.singleConnection.query('SELECT * FROM guardian_subject_ranks; SELECT * FROM allranksguardiancsv', function (error, results, fields) {
+  db.singleConnection.query('SELECT * FROM guardian_compare; SELECT * FROM complete_uni_compare', function (error, results, fields) {
     if (error) {
       throw error;
     }
@@ -65,8 +49,8 @@ getNewComparisonPage = (req, res, next) => {
 };
 
 function repsond(res, guardianData, completeUniData) {
-  res.render('comparisonGuardian.ejs', {
-    pageTitle: "hello",
+  res.render('comparison.ejs', {
+    pageTitle: "Comparison Page",
     passedUniData: guardianData,
     completeUniData: completeUniData
   })
@@ -75,6 +59,5 @@ function repsond(res, guardianData, completeUniData) {
 module.exports = {
   getParallelPlotPage: getParallelPlotPage,
   getBarChartsPage: getBarChartsPage,
-  getComparisonPage: getComparisonPage,
-  getNewComparisonPage: getNewComparisonPage
+  getComparisonPage: getComparisonPage
 };
