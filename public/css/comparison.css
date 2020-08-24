@@ -40,11 +40,13 @@ div.tooltip {
   fill: none;
   stroke: rgb(23, 117, 240);
   stroke-width: 6px;
+  stroke-opacity: 0.5;
 }
 .completeUni path {
   fill: none;
   stroke: rgb(62, 150, 81);
   stroke-width: 6px;
+  stroke-opacity: 0.5;
 }
 
 .guardian .highlighted {
