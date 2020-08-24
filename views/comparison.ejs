@@ -90,23 +90,17 @@
     svg.selectAll(".dimension").remove();
   }
 
-  let completeDimensions = d3.keys(completeUniData[0]).filter(function (dimension) {
-    if (dimension === "name") {
-      return false
-    }
-  });
-
   render = (data, completeUniData) => {
 
+    //Selected Uni Obj needs to be in array format to be bound for DOM elements
     selectedRow = [data[selectedPosition]];
     completeUniRow = [completeUniData[selectedPosition]];
 
+    //Actual selected uni Obj reference
     selectedGuardianUni = data[selectedPosition];
     selectedCompleteUni = completeUniData[selectedPosition];
 
-
-    console.log(data[0]);
-
+    //removes properties from each uni that contains no rank for a given metric
     removeEmptyProp = (obj) => {
       for (let property in obj) {
         if (obj[property] === "") {
@@ -117,19 +111,16 @@
 
     cleanedGuardianUni = removeEmptyProp(selectedGuardianUni);
     cleanedGuardianUni = Object.assign({}, selectedGuardianUni);
-    console.log(cleanedGuardianUni)
 
-
-
-    //Helper objects used to make code more ledgible & easier to maintain
+    //Helper variables used to make code more readible & easier to maintain
     let x = d3.scale.ordinal().rangePoints([0, width], 1);
     let y = {};
     let dragging = {};
 
     let line = d3.svg.line();
     let axis = d3.svg.axis().orient("left");
-    let background = null;
-    let foreground = null;
+    let background;
+    let foreground;
 
     // Extract the list of dimensions and create a scale for each.
     x.domain(dimensions = d3.keys(selectedGuardianUni).filter(function (dimension) {
@@ -168,7 +159,7 @@
           .style("opacity", 0);
       });
 
-    // Draw foreground Lines
+    // Draw guardian Lines
     guardianLines = innerVis.append("g")
       .attr("class", "guardian")
       .selectAll("path")

@@ -7,13 +7,14 @@
 <link rel="stylesheet" href="/css/completeUniParallelPlot.css">
 
 <body>
+  <button id="buttonHome"><a href="/">Home</a></button>
 
   <h1><span id="providerTitle">The Complete University Guide</span> Overall Ranking</h1>
   <div id="data" data-xaxis="<%= passedUniData %>"></div>
 
   <svg id="parallelChart" height="780" width="1800"></svg>
   <div id="buttonPannel">
-    <button><a href="/completeUniBar">View Metrics in Detail</a></button>
+    <button id ="buttonDetail"><a href="/completeUniBar">View Metrics in Detail</a></button>
   </div>
 
 </body>
