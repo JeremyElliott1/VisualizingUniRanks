@@ -36,7 +36,7 @@ div.tooltip {
   width: 50%;
 }
 
-.foreground path {
+.guardian path {
   fill: none;
   stroke: rgb(23, 117, 240);
   stroke-width: 6px;
@@ -47,7 +47,7 @@ div.tooltip {
   stroke-width: 6px;
 }
 
-.foreground .highlighted {
+.guardian .highlighted {
   stroke: rgb(240, 23, 23);
   fill: none;
   opacity: 1;
