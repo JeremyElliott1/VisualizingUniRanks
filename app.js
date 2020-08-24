@@ -7,9 +7,9 @@ const guardianRoutes = require('./controller/guardianRoutes.js');
 const completeUniRoutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
 
-
 const app = express();
 
+//Sets type of templating engine is used & where files are stored
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -26,7 +26,5 @@ app.use('/completeUniPCP', completeUniRoutes.getParallelPlotPage);
 app.use('/', (req, res, next) => {
   res.render('home.ejs');
 });
-
-
 
 app.listen(3000);
