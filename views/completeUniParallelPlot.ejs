@@ -55,10 +55,9 @@
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-  //Click Handler
+  //ClickHandler to toggle highlighted class
   function handleClick(d, i) {
     d3.select(this).classed("highlighted", !d3.select(this).classed("highlighted"));
-    console.log(d.class);
   }
 
   const innerVis = svg.append('g')

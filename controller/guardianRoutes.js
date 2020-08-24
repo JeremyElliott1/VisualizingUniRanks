@@ -38,9 +38,7 @@ getComparisonPage = (req, res, next) => {
     if (error) {
       throw error;
     }
-    //THIS RESULTS VALUE MUST BE ASSIGNED OUTSIDE ITS CODE BLOCK
-    console.log(results.length)
-    console.log(results[1].length)
+
     let guardianData = JSON.stringify(results[0]);
     let completeUniData = JSON.stringify(results[1]);
 
