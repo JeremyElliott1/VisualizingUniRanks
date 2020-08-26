@@ -71,11 +71,12 @@
 
   // Extract the list of dimensions and create a scale for each.
   x.domain(dimensions = d3.keys(uniData[0]).filter(function (dimension) {
+    console.log(dimension);
     let yRange = [height, 0];
     if (dimension === "name") {
       return false
     }
-    if (dimension.includes("rank") || dimension.includes("ratio")) {
+    if (dimension.includes("rank") || dimension.includes("Ratio")) {
       yRange = [0, height];
     }
     return (y[dimension] = d3.scale.linear()

@@ -76,7 +76,7 @@
     if (dimension === "name") {
       return false
     }
-    if (dimension.includes("rank") || dimension.includes("ratio")) {
+    if (dimension.includes("rank") || dimension.includes("Ratio")) {
       yRange = [0, height];
     }
     return (y[dimension] = d3.scale.linear()
