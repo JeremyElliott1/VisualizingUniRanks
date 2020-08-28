@@ -1,7 +1,7 @@
 const db = require('../util/database.js')
 
 getParallelPlotPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM complete_university_guide_overall')
+  db.connection.query('SELECT * FROM complete_uni_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
@@ -17,7 +17,7 @@ getParallelPlotPage = (req, res, next) => {
 };
 
 getBarChartsPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM complete_university_guide_overall')
+  db.connection.query('SELECT * FROM complete_uni_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
