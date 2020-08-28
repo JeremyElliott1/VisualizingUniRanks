@@ -71,7 +71,6 @@
 
   // Extract the list of dimensions and create a scale for each.
   x.domain(dimensions = d3.keys(uniData[0]).filter(function (dimension) {
-    console.log(dimension);
     let yRange = [height, 0];
     if (dimension === "name") {
       return false
