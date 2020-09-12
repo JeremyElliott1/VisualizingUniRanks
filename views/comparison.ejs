@@ -40,202 +40,223 @@
   //gets all university names, stores it UniNames array
   let uniNames = [];
   const setMenuOptions = (d) => {
-    uniData.forEach(uniRow => {
-      uniNames.push(uniRow.name);
-    })
+      uniData.forEach(uniRow => {
+          uniNames.push(uniRow.name);
+      })
   };
   setMenuOptions();
 
   //set Drop Down Menu based on passed in Uni Names
   const dropDown = d3.select("#universityDropDown");
   dropDown.selectAll('option')
-    .data(uniNames)
-    .enter()
-    .append('option')
-    .attr('value', function (d) { return d })
-    .text(function (d) { return d });
+      .data(uniNames)
+      .enter()
+      .append('option')
+      .attr('value', function(d) {
+          return d
+      })
+      .text(function(d) {
+          return d
+      });
 
   dropDown.on("change", change);
 
   let selectedPosition;
+
   function change() {
-    selectedPosition = document.getElementById("universityDropDown").selectedIndex;
-    deletePreviousChart();
-    render(uniData, completeUniData);
+      selectedPosition = document.getElementById("universityDropDown").selectedIndex;
+      deletePreviousChart();
+      render(uniData, completeUniData);
   }
 
   // set InnerVis height & width
   const margin = {
-    top: 160,
-    right: 0,
-    bottom: 100,
-    left: 100
+      top: 160,
+      right: 0,
+      bottom: 100,
+      left: 100
   }
   const height = svgHeight - margin.top - margin.bottom;
   const width = svgWidth - margin.left - margin.right;
 
   //Move innerVis by top & left margin
   const innerVis = svg.append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   //Create div for tooltip
   let div = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
 
   function deletePreviousChart() {
-    svg.selectAll(".completeUni").remove();
-    svg.selectAll(".guardian").remove();
-    svg.selectAll(".dimension").remove();
+      svg.selectAll(".completeUni").remove();
+      svg.selectAll(".guardian").remove();
+      svg.selectAll(".dimension").remove();
   }
 
   render = (data, completeUniData) => {
 
-    //Selected Uni Obj needs to be in array format to be bound for DOM elements
-    selectedRow = [data[selectedPosition]];
-    completeUniRow = [completeUniData[selectedPosition]];
+      //Selected Uni Obj needs to be in array format to be bound for DOM elements
+      selectedRow = [data[selectedPosition]];
+      completeUniRow = [completeUniData[selectedPosition]];
 
-    //Actual selected uni Obj reference
-    selectedGuardianUni = data[selectedPosition];
-    selectedCompleteUni = completeUniData[selectedPosition];
+      //Actual selected uni Obj reference
+      selectedGuardianUni = data[selectedPosition];
+      selectedCompleteUni = completeUniData[selectedPosition];
 
-    //removes properties from each uni that contains no rank for a given metric
-    removeEmptyProp = (obj) => {
-      for (let property in obj) {
-        if (obj[property] === "") {
-          delete obj[property];
-        }
-      }
-    }
-
-    cleanedGuardianUni = removeEmptyProp(selectedGuardianUni);
-    cleanedGuardianUni = Object.assign({}, selectedGuardianUni);
-
-    //Helper variables used to make code more readible & easier to maintain
-    let x = d3.scale.ordinal().rangePoints([0, width], 1);
-    let y = {};
-    let dragging = {};
-
-    let line = d3.svg.line();
-    let axis = d3.svg.axis().orient("left");
-    let background;
-    let foreground;
-
-    // Extract the list of dimensions and create a scale for each.
-    x.domain(dimensions = d3.keys(selectedGuardianUni).filter(function (dimension) {
-      if (dimension === "name") {
-        return false
-      }
-      return (y[dimension] = d3.scale.linear()
-        .domain(d3.extent(data, function (value) {
-          if (value[dimension] == "") {
-            return null;
+      //removes properties from each uni that contains no rank for a given metric
+      removeEmptyProp = (obj) => {
+          for (let property in obj) {
+              if (obj[property] === "") {
+                  delete obj[property];
+              }
           }
-          return +value[dimension];
-        }))
-        .range([0, height]));
-    }));
+      }
 
-    // Draw CompleteUni Lines
-    completeUniLines = innerVis.append("g")
-      .attr("class", "completeUni")
-      .selectAll("path")
-      .data(completeUniRow)
-      .enter()
-      .append("path")
-      .attr("d", path)
-      .on("mouseover", function (d) {
-        div.transition()
-          .duration(200)
-          .style("opacity", .9);
-        div.html(d.name)
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-      })
-      .on("mouseout", function (d) {
-        div.transition()
-          .duration(500)
-          .style("opacity", 0);
-      });
+      cleanedGuardianUni = removeEmptyProp(selectedGuardianUni);
+      cleanedGuardianUni = Object.assign({}, selectedGuardianUni);
 
-    // Draw guardian Lines
-    guardianLines = innerVis.append("g")
-      .attr("class", "guardian")
-      .selectAll("path")
-      .data(selectedRow)
-      .enter()
-      .append("path")
-      .attr("d", path)
-      .on("mouseover", function (d) {
-        div.transition()
-          .duration(200)
-          .style("opacity", .9);
-        div.html(d.name)
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-      })
-      .on("mouseout", function (d) {
-        div.transition()
-          .duration(500)
-          .style("opacity", 0);
-      });
+      //Helper variables used to make code more readible & easier to maintain
+      let x = d3.scale.ordinal().rangePoints([0, width], 1);
+      let y = {};
+      let dragging = {};
 
-    // For each dimension create a group element which contains drag & drop functionality
-    let g = innerVis.selectAll(".dimension")
-      .data(dimensions)
-      .enter().append("g")
-      .attr("class", "dimension")
-      .attr("transform", function (d) { return "translate(" + x(d) + ")"; })
-      .call(d3.behavior.drag()
-        .origin(function (d) { return { x: x(d) }; })
-        .on("dragstart", function (d) {
-          dragging[d] = x(d);
-        })
-        .on("drag", function (d) {
-          dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-          guardianLines.attr("d", path);
-          completeUniLines.attr("d", path);
-          dimensions.sort(function (a, b) { return position(a) - position(b); });
-          x.domain(dimensions);
-          g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
-        })
-        .on("dragend", function (d) {
-          delete dragging[d];
-          transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
-          transition(guardianLines).attr("d", path);
-          transition(completeUniLines).attr("d", path);
-        }));
+      let line = d3.svg.line();
+      let axis = d3.svg.axis().orient("left");
+      let background;
+      let foreground;
 
-    //If currently being dragged returns the x coordinates of the dragged scale.
-    function position(d) {
-      let v = dragging[d];
-      return v == null ? x(d) : v;
-    }
-    //Returns animated 0.5sec transition for a param selection 'g'
-    function transition(g) {
-      return g.transition().duration(500);
-    }
+      // Extract the list of dimensions and create a scale for each.
+      x.domain(dimensions = d3.keys(selectedGuardianUni).filter(function(dimension) {
+          if (dimension === "name") {
+              return false
+          }
+          return (y[dimension] = d3.scale.linear()
+              .domain(d3.extent(data, function(value) {
+                  if (value[dimension] == "") {
+                      return null;
+                  }
+                  return +value[dimension];
+              }))
+              .range([0, height]));
+      }));
 
-    //Returns path coordinates along each scale for each data item
-    function path(d) {
-      return line.defined(function (d) { return d[1] != null; })(dimensions.map(function (p) {
+      // Draw CompleteUni Lines
+      completeUniLines = innerVis.append("g")
+          .attr("class", "completeUni")
+          .selectAll("path")
+          .data(completeUniRow)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .on("mouseover", function(d) {
+              div.transition()
+                  .duration(200)
+                  .style("opacity", .9);
+              div.html(d.name)
+                  .style("left", (d3.event.pageX) + "px")
+                  .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d) {
+              div.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+          });
 
-        if (d[p] === "") {
-          return [position(p, null)];
-        }
-        return [position(p), y[p](d[p])];
-      }))
-    }
+      // Draw guardian Lines
+      guardianLines = innerVis.append("g")
+          .attr("class", "guardian")
+          .selectAll("path")
+          .data(selectedRow)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .on("mouseover", function(d) {
+              div.transition()
+                  .duration(200)
+                  .style("opacity", .9);
+              div.html(d.name)
+                  .style("left", (d3.event.pageX) + "px")
+                  .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d) {
+              div.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+          });
 
-    //Adds a group to draw scale and title
-    g.append("g")
-      .attr("class", "axis")
-      .each(function (d) { d3.select(this).call(axis.ticks(6).scale(y[d])); })
-      .append("text")
-      .style("text-anchor", "middle")
-      .attr("transform", d3.transform('translate(0 -60) rotate(-40)'))
-      .text(function (d) { return d; });
+      // For each dimension create a group element which contains drag & drop functionality
+      let g = innerVis.selectAll(".dimension")
+          .data(dimensions)
+          .enter().append("g")
+          .attr("class", "dimension")
+          .attr("transform", function(d) {
+              return "translate(" + x(d) + ")";
+          })
+          .call(d3.behavior.drag()
+              .origin(function(d) {
+                  return {
+                      x: x(d)
+                  };
+              })
+              .on("dragstart", function(d) {
+                  dragging[d] = x(d);
+              })
+              .on("drag", function(d) {
+                  dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+                  guardianLines.attr("d", path);
+                  completeUniLines.attr("d", path);
+                  dimensions.sort(function(a, b) {
+                      return position(a) - position(b);
+                  });
+                  x.domain(dimensions);
+                  g.attr("transform", function(d) {
+                      return "translate(" + position(d) + ")";
+                  })
+              })
+              .on("dragend", function(d) {
+                  delete dragging[d];
+                  transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
+                  transition(guardianLines).attr("d", path);
+                  transition(completeUniLines).attr("d", path);
+              }));
+
+      //If currently being dragged returns the x coordinates of the dragged scale.
+      function position(d) {
+          let v = dragging[d];
+          return v == null ? x(d) : v;
+      }
+      //Returns animated 0.5sec transition for a param selection 'g'
+      function transition(g) {
+          return g.transition().duration(500);
+      }
+
+      //Returns path coordinates along each scale for each data item
+      function path(d) {
+          return line.defined(function(d) {
+              return d[1] != null;
+          })(dimensions.map(function(p) {
+
+              if (d[p] === "") {
+                  return [position(p, null)];
+              }
+              return [position(p), y[p](d[p])];
+          }))
+      }
+
+      //Adds a group to draw scale and title
+      g.append("g")
+          .attr("class", "axis")
+          .each(function(d) {
+              d3.select(this).call(axis.ticks(6).scale(y[d]));
+          })
+          .append("text")
+          .style("text-anchor", "middle")
+          .attr("transform", d3.transform('translate(0 -60) rotate(-40)'))
+          .text(function(d) {
+              return d;
+          });
   }
   change()
 </script>
