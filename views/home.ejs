@@ -1,20 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Hompage Ranking Data App</title>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="/css/home.css">
+
 </head>
+
 <body>
-  <h1>UK University Ranking Data Comparison App</h1>
-
-  <p>Select which university league tables you wish to view or select a comparison overview of all three league tables.</p>
-
-  <div id = buttons>
-    <button><a href = "/guardianPCP">The Guardian Ranking Data</a></button>
-    <button><a href = "/timesPCP">The Times Ranking Data</a></button>
-    <button><a href = "/completeUniPCP">The Complete University Guide Ranking Data</a></button>    <button><a href = "/comparison">Rankings Comparison</a></button>
+  <div id=headerWrapper>
+    <h1 id=headerWrapper__header>UK University Ranking Data Comparison App</h1>
   </div>
-  
+  <div id=descWrapper>
+    <p id=descWrapper__p>Select a university ranking dataset to view or select a comparison overview of all
+      three league tables</p>
+  </div>
+
+  <div id=cards>
+    <div class=card>
+      <div class=card__imgWrapper>
+        <a href="/guardianPCP"> <img src="res/theGuardianLogo.png" alt="TheGuardian" width=200px;> </a>
+      </div>
+      <a href="/guardianPCP">
+        <button id=guardianButton>
+          <p class=cards__card__text>The Guardian Ranking Data</p>
+        </button>
+      </a>
+
+    </div>
+    <div class=card>
+      <div class=card__imgWrapper>
+        <a href="/timesPCP"> <img src="res/theSundayTimesLogo.png" alt="TheSundayTimes" width=200px;> </a>
+      </div>
+      <a href="/timesPCP">
+        <button id=sundayTimesButton>
+          <p class=cards__card__text>The Sunday Times Ranking Data</p>
+        </button>
+      </a>
+    </div>
+    <div class=card>
+      <div class=card__imgWrapper>
+        <a href="/completeUniPCP"> <img src="res/CUGLogo.png" alt="TheSundayTimes" width=200px;> </a>
+      </div>
+      <a href="/completeUniPCP">
+        <button id=CUGButton>
+          <p class=cards__card__text>The Complete University Guide</p>
+        </button>
+      </a>
+    </div>
+    <div class=card>
+      <div class=card__imgWrapper>
+        <a href="/comparison"> <img src="res/comparisonLogo2.png" alt="TheCompleteUniversityGuide" width=200px;> </a>
+      </div>
+      <a href="/comparison">
+        <button>
+          <p class=cards__card__text>Comparison of University Guides</p>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script> -->
 </body>
+
 </html>

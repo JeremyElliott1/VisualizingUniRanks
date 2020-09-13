@@ -1,0 +1,100 @@
+body
+{
+    margin: 0;
+    padding: 0;
+}
+
+#headerWrapper {
+  margin: 0 auto;
+  width: 100%;
+  background-color: #272727;
+}
+ 
+#headerWrapper__header{
+  margin: auto;
+  width: 75%;
+  color: #ffffff;
+  text-shadow: 2px 2px #000000; 
+  font-family: 'Raleway',sans-serif; 
+  font-size: 62px; 
+  font-weight: 800; 
+  line-height: 72px; 
+  text-align: center; 
+  text-transform: uppercase;
+}
+
+#descWrapper {
+  margin: auto;
+  width: 75%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#descWrapper__p{
+  font-size: 24px;
+  text-align: center;
+}
+
+#cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* background-color: cadetblue; */
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: larger;
+  height: 20rem;
+    /* background-color: darkblue; */
+}
+
+.card__imgWrapper {
+  height: 20%;
+  /* background-color: peachpuff; */
+}
+
+.card__imgWrapper img {
+  display: block;
+  margin: auto;
+}
+
+.card button {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border: 4px solid;
+  border-radius: 6px;
+  background-color: white;
+  height: 30px;
+}
+
+button:hover { color: #1c1c1c; text-decoration: underline; background-color: wheat; }
+
+.cards__card__text {
+  margin: 0;
+}
+
+#guardianButton{
+  border-color:  rgb(23, 117, 240);
+}
+
+#sundayTimesButton{
+  border-color:  rgb(107, 76, 154);
+}
+
+#CUGButton{
+  border-color:  rgb(62, 150, 81);
+}
+
+/* 
+#272727 - Black
+#747474 - Grey
+#FF652F - Orange
+#FFE400 - Yellow
+#14A76C - Green 
+*/
+
+
