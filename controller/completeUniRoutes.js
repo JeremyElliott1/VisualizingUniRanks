@@ -1,4 +1,4 @@
-const db = require('../util/database.js')
+const db = require('../util/database.js');
 
 getParallelPlotPage = (req, res, next) => {
   db.connection.query('SELECT * FROM complete_uni_overall')

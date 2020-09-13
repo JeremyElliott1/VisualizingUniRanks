@@ -1,6 +1,12 @@
+//module imports
+const express = require('express');
+
+//local imports
 const db = require('../util/database.js')
 
-getParallelPlotPage = (req, res, next) => {
+const router = express.Router();
+
+router.get('/overview', (req, res, next) => {
   db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -14,9 +20,9 @@ getParallelPlotPage = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-};
+});
 
-getBarChartsPage = (req, res, next) => {
+router.get('/byMetric', (req, res, next) => {
   db.connection.query('SELECT * FROM guardian_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -30,32 +36,17 @@ getBarChartsPage = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-};
+});
 
-getComparisonPage = (req, res, next) => {
-  db.singleConnection.connect();
-  db.singleConnection.query('SELECT * FROM guardian_compare; SELECT * FROM complete_uni_compare', function (error, results, fields) {
-    if (error) {
-      throw error;
-    }
-
-    let guardianData = JSON.stringify(results[0]);
-    let completeUniData = JSON.stringify(results[1]);
-
-    repsond(res, guardianData, completeUniData);
-  });
-};
-
-function repsond(res, guardianData, completeUniData) {
-  res.render('comparison.ejs', {
-    pageTitle: "Comparison Page",
-    passedUniData: guardianData,
-    completeUniData: completeUniData
+function repsond(res, pageName, pageTitle, dataSet1, dataSet2, dataSet3) {
+  res.render(pageName, {
+    pageTitle: pageTitle,
+    dataSet1: dataSet1,
+    dataSet2: dataSet2,
+    dataSet3: dataSet3
   })
 };
 
 module.exports = {
-  getParallelPlotPage: getParallelPlotPage,
-  getBarChartsPage: getBarChartsPage,
-  getComparisonPage: getComparisonPage
+  router: router
 };

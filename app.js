@@ -6,6 +6,7 @@ const path = require('path');
 const guardianRoutes = require('./controller/guardianRoutes.js');
 const completeUniRoutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
+const comparisonRoutes = require('./controller/comparisonRoutes.js');
 
 const app = express();
 
@@ -15,12 +16,12 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/comparison', guardianRoutes.getComparisonPage);
+app.use('/guardian',guardianRoutes.router);
+
+app.use(comparisonRoutes.router);
 
 app.use('/timesBar', timesRoutes.getBarChartsPage);
 app.use('/timesPCP', timesRoutes.getParallelPlotPage);
-app.use('/guardianBar', guardianRoutes.getBarChartsPage);
-app.use('/guardianPCP', guardianRoutes.getParallelPlotPage);
 app.use('/completeUniBar', completeUniRoutes.getBarChartsPage);
 app.use('/completeUniPCP', completeUniRoutes.getParallelPlotPage);
 app.use('/', (req, res, next) => {
