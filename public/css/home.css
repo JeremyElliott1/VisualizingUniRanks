@@ -4,6 +4,10 @@ body
     padding: 0;
 }
 
+p{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 #headerWrapper {
   margin: 0 auto;
   width: 100%;
