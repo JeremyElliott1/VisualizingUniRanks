@@ -38,15 +38,6 @@ router.get('/byMetric', (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-function repsond(res, pageName, pageTitle, dataSet1, dataSet2, dataSet3) {
-  res.render(pageName, {
-    pageTitle: pageTitle,
-    dataSet1: dataSet1,
-    dataSet2: dataSet2,
-    dataSet3: dataSet3
-  })
-};
-
 module.exports = {
   router: router
 };

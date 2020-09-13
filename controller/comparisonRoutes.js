@@ -16,12 +16,12 @@ router.get('/comparison', (req, res, next) => {
     let guardianData = JSON.stringify(results[0]);
     let completeUniData = JSON.stringify(results[1]);
 
-    repsond(res, 'comparison.ejs', 'UniComparisons', guardianData, completeUniData);
+    respond(res, 'comparison.ejs', 'UniComparisons', guardianData, completeUniData);
   });
 })
 
-function repsond(res, pageName, pageTitle, dataSet1, dataSet2, dataSet3) {
-  res.render(pageName, {
+function respond(res, fileName, pageTitle, dataSet1, dataSet2, dataSet3) {
+  res.render(fileName, {
     pageTitle: pageTitle,
     dataSet1: dataSet1,
     dataSet2: dataSet2,
