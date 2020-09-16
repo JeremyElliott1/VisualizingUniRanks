@@ -45,6 +45,23 @@ div.tooltip {
   width: 50%;
 }
 
+a {
+  text-decoration: none;
+}
+
+#button_BarChart {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  width: 50%;
+  background-color: #DCDCDC;
+}
+
+#button_BarChart a {
+  color: rgb(23, 117, 240);
+}
+
 .foreground path {
   fill: none;
   stroke: rgb(23, 117, 240);

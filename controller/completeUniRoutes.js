@@ -1,6 +1,12 @@
+//Module imports
+const express = require('express');
+
+//Local imports
 const db = require('../util/database.js')
 
-getParallelPlotPage = (req, res, next) => {
+const router = express.Router();
+
+router.get('/overview', (req, res, next) => {
   db.connection.query('SELECT * FROM complete_uni_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -14,9 +20,9 @@ getParallelPlotPage = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-};
+})
 
-getBarChartsPage = (req, res, next) => {
+router.get('/byMetric', (req, res, next) => {
   db.connection.query('SELECT * FROM complete_uni_overall')
     .then(([rowData, columnData]) => {
       let universities = [];
@@ -30,9 +36,8 @@ getBarChartsPage = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-};
+});
 
 module.exports = {
-  getParallelPlotPage: getParallelPlotPage,
-  getBarChartsPage: getBarChartsPage
+  router: router,
 };

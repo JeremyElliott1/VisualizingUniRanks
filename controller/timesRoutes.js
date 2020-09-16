@@ -1,38 +1,43 @@
+//Module imports
+const express = require('express');
+
+//Local imports
 const db = require('../util/database.js');
 
-getParallelPlotPage = (req, res, next) => {
-  db.connection.query('SELECT * FROM times_overall')
-    .then(([rowData, columnData]) => {
-      let universities = [];
-      rowData.forEach(rowValue => {
-        universities.push(rowValue);
-      });
-      universities = JSON.stringify(universities);
-      res.render('timesParallelPlot.ejs', {
-        pageTitle: 'Sunday Times Uni Rankings',
-        passedUniData: universities,
-      });
-    })
-    .catch((err) => console.log(err));
-};
+const router = express.Router();
 
-getBarChartsPage = (req, res, next) => {
+router.get('/overview', (req, res, next) => {
   db.connection.query('SELECT * FROM times_overall')
-    .then(([rowData, columnData]) => {
-      let universities = [];
-      rowData.forEach(rowValue => {
-        universities.push(rowValue);
-      });
-      universities = JSON.stringify(universities);
-      res.render('timesMetricBarCharts.ejs', {
-        pageTitle: 'Sunday Times Uni Rankings',
-        passedUniData: universities,
-      });
-    })
-    .catch((err) => console.log(err));
-};
+  .then(([rowData, columnData]) => {
+    let universities = [];
+    rowData.forEach(rowValue => {
+      universities.push(rowValue);
+    });
+    universities = JSON.stringify(universities);
+    res.render('timesParallelPlot.ejs', {
+      pageTitle: 'Sunday Times Uni Rankings',
+      passedUniData: universities,
+    });
+  })
+  .catch((err) => console.log(err));
+});
+
+router.get('/byMetric', (req, res, next) => {
+  db.connection.query('SELECT * FROM times_overall')
+  .then(([rowData, columnData]) => {
+    let universities = [];
+    rowData.forEach(rowValue => {
+      universities.push(rowValue);
+    });
+    universities = JSON.stringify(universities);
+    res.render('timesMetricBarCharts.ejs', {
+      pageTitle: 'Sunday Times Uni Rankings',
+      passedUniData: universities,
+    });
+  })
+  .catch((err) => console.log(err));
+});
 
 module.exports = {
-  getParallelPlotPage: getParallelPlotPage,
-  getBarChartsPage: getBarChartsPage
+  router: router
 };

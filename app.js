@@ -4,7 +4,7 @@ const path = require('path');
 
 // Local imports
 const guardianRoutes = require('./controller/guardianRoutes.js');
-const completeUniRoutes = require('./controller/completeUniRoutes.js');
+const CUGroutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
 const comparisonRoutes = require('./controller/comparisonRoutes.js');
 
@@ -17,13 +17,10 @@ app.set('views', 'views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/guardian',guardianRoutes.router);
-
+app.use('/CUG', CUGroutes.router);
+app.use('/sundayTimes', timesRoutes.router);
 app.use(comparisonRoutes.router);
 
-app.use('/timesBar', timesRoutes.getBarChartsPage);
-app.use('/timesPCP', timesRoutes.getParallelPlotPage);
-app.use('/completeUniBar', completeUniRoutes.getBarChartsPage);
-app.use('/completeUniPCP', completeUniRoutes.getParallelPlotPage);
 app.use('/', (req, res, next) => {
   res.render('home.ejs');
 });
