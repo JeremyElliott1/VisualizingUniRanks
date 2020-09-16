@@ -11,23 +11,20 @@
   <button id="buttonHome"><a href="/">Home</a></button>
 
   <h1><span id="providerTitle">The Complete University Guide</span> Overall Ranking</h1>
-  <div id="data" data-xaxis="<%= passedUniData %>"></div>
 
   <svg id="parallelChart" height="780" width="1800"></svg>
+
   <button id="button_BarChart"><a href="/CUG/byMetric">View Metrics in Detail</a></button>
 
+  <div id="data" data-xaxis="<%= passedUniData %>"></div>
 </body>
 
-
-
 <script>
-
   const dataDiv = document.querySelector('#data');
   let uniData = dataDiv.dataset.xaxis;
   uniData = JSON.parse(uniData); // Need to convert from JSON obj to String to manipulate the array of uniData objects.
 
   const svg = d3.select('#parallelChart');
-
   const svgHeight = parseFloat(svg.attr('height'));
   const svgWidth = parseFloat(svg.attr('width'));
 

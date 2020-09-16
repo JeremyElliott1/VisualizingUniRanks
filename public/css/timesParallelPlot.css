@@ -39,11 +39,13 @@ div.tooltip {
   transition: all 0.3s ease 0s;
 }
 
-#buttonPannel{
-  margin-top: 10px;
+#button_BarChart {
+  display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 2rem;
   width: 50%;
+  background-color: #DCDCDC;
 }
 
 .foreground path {
