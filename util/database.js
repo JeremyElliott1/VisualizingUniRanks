@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   database: 'guardianleaguetable',
-  password: 'Manado1969!'
+  password: 'Manado1969'
 })
 
 const connection = pool.promise();
@@ -13,7 +13,7 @@ const singleConnection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'guardianleaguetable',
-  password: 'Sponge123!',
+  password: 'Manado1969',
   multipleStatements: true,
   debug: false
 })
