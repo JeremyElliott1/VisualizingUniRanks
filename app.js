@@ -25,9 +25,8 @@ app.use('/', (req, res, next) => {
   res.render('home.ejs');
 });
 
-app.listen(port, () => (`listening`));
+app.listen(3000);
 
-const port = process.env.port || 3000;
 
 function add(num1, num2){
   return num1 + num2;
