@@ -79,7 +79,7 @@
     }
     return (y[dimension] = d3.scale.linear()
       .domain(d3.extent(uniData, function (value) {
-        if (value[dimension] == "") {
+        if (value[dimension] === 0) {
           return null;
         }
         return +value[dimension];
@@ -196,7 +196,7 @@
   function path(d) {
     return line.defined(function (d) { return d[1] != null; })(dimensions.map(function (p) {
 
-      if (d[p] === "") {
+      if (d[p] === 0) {
         return [position(p, null)];
       }
       return [position(p), y[p](d[p])];
