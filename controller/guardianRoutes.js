@@ -7,7 +7,7 @@ const db = require('../util/database.js')
 const router = express.Router();
 
 router.get('/overview', (req, res, next) => {
-  db.connection.query('SELECT * FROM guardian_overall')
+  db.connection.query('SELECT * FROM Guardian2020Overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
