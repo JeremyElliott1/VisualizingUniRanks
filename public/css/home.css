@@ -91,7 +91,6 @@ p{
 #header__buttonWrapper_button{
   height: 100px;
   width: 100px;
-  background-color: rebeccapurple;
   border-radius: 50%;
   position: relative;
   left: auto; right: auto;
@@ -100,8 +99,13 @@ p{
   font-size: 75px;
   font-weight: bolder;
   color: #ffffff;
+  background-color: rebeccapurple;
   text-decoration: none;
 }
+
+#header__buttonWrapper_button:hover { color: #FF4500	; background-color: wheat; }
+
+#header__buttonWrapper_button:active { color: #ffffff	; background-color: rebeccapurple; }
 
 #cardsDesc {
   font-size: 24px;
