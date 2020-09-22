@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body
 {
     margin: 0;
@@ -8,35 +12,102 @@ p{
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-#headerWrapper {
+#header {
+  display: grid;
+  place-items: center;
   margin: 0 auto;
   width: 100%;
   background-color: #272727;
 }
+
+#header__imgWrapper{
+  position: relative; 
+  width: 1400;
+}
+
+#header__imgWrapper__img {
+  position: relative;
+}
+
+#header__square {
+  position: absolute;
+  display: flex;
+  top: 0; 
+  right: 0;
+  background-color: lightslategrey;
+  height: 100%;
+  width: 40%;
+  opacity: 0.8;
+}
  
-#headerWrapper__header{
+#header__square__h1{
+  position: absolute;
   margin: auto;
-  width: 75%;
+  margin-top: 3rem;
+  width: 100%;
   color: #ffffff;
   text-shadow: 2px 2px #000000; 
   font-family: 'Raleway',sans-serif; 
-  font-size: 62px; 
+  font-size: 46px; 
   font-weight: 800; 
   line-height: 72px; 
   text-align: center; 
   text-transform: uppercase;
 }
 
-#descWrapper {
+#header__descWrapper {
   margin: auto;
-  width: 75%;
+  height: 60%;
+  width: 100%;
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-#descWrapper__p{
+#header__descWrapper__p {
   font-size: 24px;
   text-align: center;
+  margin-top: 18rem;
+  margin-left: 2rem;  margin-left: 2rem;
+  color: #ffffff;
+}
+
+#header__descWrapper__p2 {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 12rem;
+  margin-left: 2rem;  margin-left: 2rem;
+  color: #ffffff;
+}
+
+#header__buttonWrapper{
+  position: absolute;
+  display: grid;
+  place-items: center;
+  bottom: 0;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+#header__buttonWrapper_button{
+  height: 100px;
+  width: 100px;
+  background-color: rebeccapurple;
+  border-radius: 50%;
+  position: relative;
+  left: auto; right: auto;
+  margin-bottom: 6rem;
+  text-align: center;
+  font-size: 75px;
+  font-weight: bolder;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#cardsDesc {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
 }
 
 #cards {
@@ -44,6 +115,7 @@ p{
   flex-wrap: wrap;
   justify-content: space-around;
   /* background-color: cadetblue; */
+  margin-bottom: 10rem;
 }
 
 .card {
