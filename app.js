@@ -21,8 +21,12 @@ app.use('/CUG', CUGroutes.router);
 app.use('/sundayTimes', timesRoutes.router);
 // app.use(comparisonRoutes.router);
 
+app.use('/uniRankHome', (req, res, next) => {
+  res.render('uniRankHome.ejs');
+});
+
 app.use('/', (req, res, next) => {
-  res.render('home.ejs');
+  res.render('index.ejs');
 });
 
 app.listen(8080);
