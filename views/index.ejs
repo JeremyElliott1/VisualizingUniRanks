@@ -16,16 +16,77 @@
 
   <div id="navBar">
     <ul id="navBar__options">
-      <li class=navBar__option>About Me</li>
-      <li class=navBar__option>CV</li>
-      <li class=navBar__option>Projects</li>
+      <a class="anchor" href="#portfolioWrapper">
+        <li class=navBar__option>Portfolio</li>
+      </a>
+      <a class="anchor" href='/aboutme'>
+        <li class=navBar__option>About Me</li>
+      </a>
+      <a class="anchor" href='/aboutme'>
+        <li class=navBar__option>CV</li>
+      </a>
     </ul>
   </div>
+  <div class="sectionWrapper" id="portfolioWrapper">
+    <div class="sectionWrapper__textWrapper">
+      <h2 class="sectionWrapper__h2">Portfolio</h2>
+
+      <div id="portfolioWrapper__info">
+        <h3 id="portfolioWrapper__info__h3">Visualising University Ranking Data Web App</h3>
+        <p id="portfolioWrapper__info_p">Supporting University Comparison Across 3 different league tables through data
+          visaulisations</p>
+      </div>
+
+      <div id="portfolioWrapper__buttonAndImg">
+        <div id="portfolioWrapper__ButtonWrapper">
+          <a class="anchor" href="/uniRankHome">
+            <p id="portfolioWrapper__ButtonWrapper__Button">Take a Look ></p>
+          </a>
+        </div>
+
+        <div id="portfolioWrapper__ImgWrapper">
+          <a class="anchor" href="/uniRankHome">
+            <img id="uniRankImg" src="res/graduation.png">
+          </a>
+        </div>
+      </div>
+    </div>
 
 
-  <a href="/uniRankHome">
-    <button>Uni Ranks App</button>
-  </a>
+    <p id="portfolioWrapper__techListDesc">Tech used </p>
+    <ul id="portfolioWrapper__techList">
+      <li>JavaScript</li>
+      <li>HTML5</li>
+      <li>CSS3</li>
+      <li>MySQL</li>
+      <li>Node.js</li>
+      <li>D3.js</li>
+      <li>AWS (ECB2 + RDS)</li>
+    </ul>
+
+    <div id="portfolioWrapper__circleWrapper">
+
+    </div>
+
+  </div>
+
+  <br height="18px">
+
+  <div class="sectionWrapper" id="aboutMeWrapper">
+    <div class="sectionWrapper__textWrapper">
+
+      <h2 class="sectionWrapper__h2">About Me</h2>
+      <p id="portfolioWrapper__skillListDesc">Skills</p>
+      <ul id="skillList">
+        <li>JavaScript</li>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>MySQL</li>
+        <li>Node.js</li>
+        <li>D3.js</li>
+      </ul>
+    </div>
+  </div>
 
 </body>
 

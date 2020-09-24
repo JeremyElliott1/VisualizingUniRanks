@@ -1,3 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+
+p, h2, h3 {
+  color: white;
+}
+
 #header {
   height: 5rem;
   display: flex;
@@ -8,6 +16,12 @@
 
 #header__h1 {
   font-size: 38px;
+  color: #39a0ca;
+}
+
+#navBar {
+  display: flex;
+  justify-content: space-around;
 }
 
 #navBar__options{
@@ -15,7 +29,103 @@
   flex-direction: row;
 }
 
+.anchor {
+  text-decoration: none;
+  color: black;
+}
+
+.anchor:hover {
+  color: #39a0ca;
+}
+
+.anchor:active {
+  color: white;
+}
+
 .navBar__option {
-  font-size: xx-large;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  font-size: x-large;
   list-style-type: none;
 }
+
+.sectionWrapper{
+  height: 33rem;
+  background-color: #161748;
+}
+
+.sectionWrapper__h2 {
+  padding-top: 2rem;
+}
+
+
+
+#portfolioWrapper__info__h3 {
+  padding-top: 1rem;
+}
+
+#portfolioWrapper__info_p {
+  padding-top: 1rem;
+}
+
+#portfolioWrapper__buttonAndImg{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+}
+
+ #portfolioWrapper__ButtonWrapper {
+  width: 50%;
+  height: 15rem;
+}
+
+#portfolioWrapper__ButtonWrapper__Button {
+  padding-top: 7rem;
+  padding-left: 20%;
+  font-weight: bolder;
+}
+
+#portfolioWrapper__ImgWrapper{
+    width: 50%;
+    height: 15rem;
+}
+
+#uniRankImg{
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+}
+
+#portfolioWrapper__techListDesc {
+  margin-left: 25%;
+}
+
+#portfolioWrapper__techList {
+  margin-left: 25%;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+#portfolioWrapper__techList li {
+  color: white;
+  margin-left: 1.5rem;
+}
+
+.sectionWrapper__textWrapper{
+  padding-left: 25%;
+}
+
+.sectionWrapper__textWrapper{
+  padding-left: 25%;
+}
+
+/* 
+Green Treeline: #478559
+
+Purple baseline: #161748
+
+Pink highlight: #f95d9b
+
+Bluewater lowlight: #39a0ca
+*/
