@@ -129,7 +129,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  min-width: 15rem;
+  width: 15rem;
 }
 
 #portfolioWrapper__skillList li {
