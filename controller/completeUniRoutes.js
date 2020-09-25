@@ -23,7 +23,7 @@ router.get('/overview', (req, res, next) => {
 })
 
 router.get('/byMetric', (req, res, next) => {
-  db.connection.query('SELECT * FROM complete_uni_overall')
+  db.connection.query('SELECT * FROM CUG2020Overall')
     .then(([rowData, columnData]) => {
       let universities = [];
       rowData.forEach(rowValue => {
