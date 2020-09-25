@@ -6,6 +6,7 @@ const path = require('path');
 const guardianRoutes = require('./controller/guardianRoutes.js');
 const CUGroutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
+const { createVerify } = require('crypto');
 // const comparisonRoutes = require('./controller/comparisonRoutes.js');
 
 const app = express();
@@ -23,6 +24,11 @@ app.use('/sundayTimes', timesRoutes.router);
 
 app.use('/uniRankHome', (req, res, next) => {
   res.render('uniRankHome.ejs');
+});
+
+app.get('/downloadCV', async function(req, res, next){
+  const cvFile = path.join(__dirname,'public', 'res', 'CV.pdf');
+  res.download(cvFile);
 });
 
 app.use('/', (req, res, next) => {
