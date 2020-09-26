@@ -12,7 +12,9 @@
 
   <h1><span id="providerTitle">The Complete University Guide</span> Overall Ranking</h1>
 
-  <svg id="parallelChart" height="780" width="1300"></svg>
+  <div class="chartWrapper">
+    <svg id="parallelChart" height="780" width="1300"></svg>
+  </div>
 
   <button id="button_BarChart"><a href="/CUG/byMetric">View Metrics in Detail</a></button>
 
@@ -29,7 +31,7 @@
   const svgWidth = parseFloat(svg.attr('width'));
 
   const margin = {
-    top: 25,
+    top: 50,
     right: 0,
     bottom: 10,
     left: 0
@@ -169,7 +171,8 @@
     .each(function (d) { d3.select(this).call(axis.scale(y[d])); })
     .append("text")
     .style("text-anchor", "middle")
-    .attr("y", -9)
+    .attr("transform", d3.transform('rotate(-20)'))
+    .attr("y", -15)
     .text(function (d) { return d; });
 
   // Add and store a brush for each axis.
