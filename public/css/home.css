@@ -118,7 +118,6 @@ p{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  /* background-color: cadetblue; */
   margin-bottom: 10rem;
 }
 
@@ -128,12 +127,10 @@ p{
   justify-content: center;
   font-size: larger;
   height: 20rem;
-    /* background-color: darkblue; */
 }
 
 .card__imgWrapper {
   height: 20%;
-  /* background-color: peachpuff; */
 }
 
 .card__imgWrapper img {
