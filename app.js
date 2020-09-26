@@ -7,7 +7,7 @@ const guardianRoutes = require('./controller/guardianRoutes.js');
 const CUGroutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
 const { createVerify } = require('crypto');
-// const comparisonRoutes = require('./controller/comparisonRoutes.js');
+const comparisonRoutes = require('./controller/comparisonRoutes.js');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/guardian',guardianRoutes.router);
 app.use('/CUG', CUGroutes.router);
 app.use('/sundayTimes', timesRoutes.router);
-// app.use(comparisonRoutes.router);
+app.use(comparisonRoutes.router);
 
 app.use('/uniRankHome', (req, res, next) => {
   res.render('uniRankHome.ejs');

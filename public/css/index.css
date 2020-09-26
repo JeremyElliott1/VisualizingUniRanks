@@ -2,7 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 
-body{
+body {
   min-width: 1100px;
 }
 
@@ -79,36 +79,41 @@ h3 {
 }
 
 #portfolioWrapper__ButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
-  height: 15rem;
 }
 
 #portfolioWrapper__ButtonWrapper__Button {
-  padding-top: 7rem;
-  padding-left: 20%;
   font-weight: bolder;
 }
 
 #portfolioWrapper__ImgWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
-  height: 15rem;
 }
 
 #uniRankImg {
-  height: 15rem;
-  width: 15rem;
-  border-radius: 50%;
+  border-radius: 20%/50%;
+  width: 80%;
 }
 
 #portfolioWrapper__techListDesc {
-  margin-left: 20%;
+  padding-left: 15%;
+  position: relative;
+  top: 20%;
 }
 
 #portfolioWrapper__techList {
-  margin-left: 20%;
+  padding-left: 15%;
   padding-top: 2rem;
   display: flex;
   flex-direction: row;
+  position: relative;
+  top: 20%;
 }
 
 #portfolioWrapper__techList li {
@@ -162,7 +167,7 @@ h3 {
 
 #aboutMeWrapper__textWrapper {
   width: 45%;
-  margin-left: 20%;
+  padding-left: 15%;
 }
 
 #portfolioWrapper__skillDiv {
@@ -185,7 +190,7 @@ h3 {
   place-items: center;
 }
 
-#CvWrapper__downloadButton{
+#CvWrapper__downloadButton {
   display: grid;
   place-items: center;
   text-decoration: none;
@@ -197,7 +202,6 @@ h3 {
   min-width: 200px;
   border-radius: 25%/50%;
 }
-
 
 /* 
 Green Treeline: #478559
