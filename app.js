@@ -35,7 +35,7 @@ app.use('/', (req, res, next) => {
   res.render('index.ejs');
 });
 
-app.listen(8080);
+app.listen(3000);
 
 
 function add(num1, num2){
