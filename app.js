@@ -7,7 +7,7 @@ const guardianRoutes = require('./controller/guardianRoutes.js');
 const CUGroutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
 const comparisonRoutes = require('./controller/comparisonRoutes.js');
-
+git
 const app = express();
 
 //Sets type of templating engine is used & where files are stored
@@ -34,7 +34,7 @@ app.use('/', (req, res, next) => {
   res.render('index.ejs');
 });
 
-app.listen(3000);
+app.listen(8080);
 
 
 function add(num1, num2){
