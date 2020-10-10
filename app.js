@@ -6,7 +6,6 @@ const path = require('path');
 const guardianRoutes = require('./controller/guardianRoutes.js');
 const CUGroutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
-const { createVerify } = require('crypto');
 const comparisonRoutes = require('./controller/comparisonRoutes.js');
 
 const app = express();
@@ -35,7 +34,7 @@ app.use('/', (req, res, next) => {
   res.render('index.ejs');
 });
 
-app.listen(8080);
+app.listen(3000);
 
 
 function add(num1, num2){
