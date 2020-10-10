@@ -8,7 +8,7 @@ const CUGroutes = require('./controller/completeUniRoutes.js');
 const timesRoutes = require('./controller/timesRoutes.js');
 const { createVerify } = require('crypto');
 const comparisonRoutes = require('./controller/comparisonRoutes.js');
-
+git
 const app = express();
 
 //Sets type of templating engine is used & where files are stored
