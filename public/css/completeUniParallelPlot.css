@@ -89,3 +89,33 @@ svg {
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
   cursor: move;
 }
+
+#tips_div{
+  margin-left: 14%;
+  margin-right: 14%;
+  margin-bottom: 3rem;
+}
+
+#tips_list{
+  padding-top: 10px;
+}
+
+.tips_list_item {
+  padding-bottom: 5px;
+}
+
+#header_wrapper {
+  display: block;
+  text-align: center;
+}
+
+#header {
+  display: inline-block;
+}
+
+#buttonTips_wrapper{
+  display: inline-block;
+  position: absolute;
+  right: 150px;
+  top: 45px;
+}

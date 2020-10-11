@@ -10,13 +10,36 @@
 <body>
   <button id="buttonHome"><a href="/">Home</a></button>
 
-  <h1><span id="providerTitle">The Complete University Guide</span> Overall Ranking</h1>
+  <div id="header_wrapper">
+    <h1><span id="providerTitle">The Complete Uni Guide </span>Overall Ranking</h1>
+    <div id=buttonTips_wrapper>
+      <button id="buttonInstructions"><a id="tips_button" class="button2" href='#tips_div'>Tips</a></button>
+    </div>
+  </div>
 
   <div class="chartWrapper">
     <svg id="parallelChart" height="780" width="1300"></svg>
   </div>
 
   <button id="button_BarChart"><a href="/CUG/byMetric">View Metrics in Detail</a></button>
+
+  <div id="tips_div">
+    <h2>Tips:</h2>
+    <ul id="tips_list">
+      <li class="tips_list_item">Each line represents a university's ranking</li>
+      <li class="tips_list_item">Each y axis represents a different university metric used to measure the
+        quality of a university</li>
+      <li class="tips_list_item">Click and drag along a y axis to create a filtered range for that university
+        metric, the highlighted
+        lines are the universities that fall within the filtered range</li>
+      <li class="tips_list_item">Filtered ranges can be applied to multiple y axes or university metrics at the same
+        time</li>
+      <li class="tips_list_item">Change the order of the y axes to make more visual & direct comparisons between
+        neighbouring metrics</li>
+      <li class="tips_list_item">Click the 'view Metrics in Detail' button to view the distribution of university
+        scores for each metric</li>
+    </ul>
+  </div>
 
   <div id="data" data-xaxis="<%= passedUniData %>"></div>
 </body>

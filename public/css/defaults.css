@@ -4,9 +4,23 @@
   font-family: 'Source Sans Pro', sans-serif;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   .chartWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 2rem;
+  }
+
+  .anchor {
+    text-decoration: none;
+    color: black;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
   }
