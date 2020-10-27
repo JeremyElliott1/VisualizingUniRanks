@@ -2,171 +2,268 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homepage</title>
-  <link rel="stylesheet" href="/css/defaults.css">
-  <link rel="stylesheet" href="/css/index.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Jeremy Elliott Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="res/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 
-<body>
-  <div id="header">
-    <h1 id="header__h1">Jeremy Elliott</h1>
-  </div>
-
-  <div id="navBar">
-    <ul id="navBar__options">
-      <a class="anchor" href='#aboutMeWrapper'>
-        <li class=navBar__option>About Me</li>
-      </a>
-      <a class="anchor" href="#portfolioWrapper">
-        <li class=navBar__option>Portfolio</li>
-      </a>
-      <a class="anchor" href='#cvWrapper'>
-        <li class=navBar__option>CV</li>
-      </a>
-    </ul>
-  </div>
-
-  <div class="sectionWrapper" id="aboutMeWrapper">
-    <div id="aboutMeWrapper__textWrapper">
-
-      <h2 class="sectionWrapper__h2">About Me</h2>
-
-
-      <p id="aboutMeWrapper__p">A recent Msc computer science graduate from Newcastle university on track to receive a distinction
-        with a keen interest data analytics and web development. Comfortable operating in unfamiliar enivornments reflected in my move from an economics undergraduate degree to a computer science postgraduate degree. <br><br>
-
-        The masters programme has exposed me to a wide variety of programming languages, design patterns & software
-        development models. This has equipped me with a broad range of tools to problem solve by developing clean,
-        testable and high-quality code.
-      </p>
-
-      <p id="portfolioWrapper__pCloser">Please feel free to explore my website which includes my CV and my latest
-        project
-        seen in the portfolio section.</p>
-
-      <div id="portfolioWrapper__educationWrapper">
-        <p id="portfolioWrapper__educationHeader">Education:</p>
-        <p id="portfolioWrapper__education">
-          Msc Computer Science - Newcastle University<br />
-          BA Hons Business Econommics - Lancaster University<br />
-          BA Hons Business Administration (1st year only) - University of Kent<br />
-        </p>
-      </div>
-
-      <div id="portfolioWrapper__employmentWrapper">
-        <p id="portfolioWrapper__employmentHeader">Employment History:</p>
-        <p id="portfolioWrapper__employment">
-          Fund/Client Administrator - Bank of New York Mellon<br />
-          Summer Intern (E-Commerce) - JAVARA INDIGENOUS INDONESIA<br />
-        </p>
-      </div>
-    </div>
-
-    <div id="portfolioWrapper__skillDiv">
-      <p id="portfolioWrapper__skillListDesc">Skills</p>
-      <ul id="portfolioWrapper__skillList">
-        <li>JavaScript</li>
-        <li>Node.js</li>
-        <li>Java</li>
-        <li>React.js</li>
-        <li>Linux Bash</li>
-        <li>HTML5</li>
-        <li>D3.js</li>
-        <li>CSS3</li>
-        <li>Git</li>
-        <li>AWS</li>
-        <li>Github</li>
-        <li>MySQL</li>
-        <li>FireBase</li>
-        <li>Android Studio</li>
-      </ul>
-    </div>
-  </div>
-
-  <br height="18px">
-
-  <div class="sectionWrapper" id="portfolioWrapper">
-    <div class="sectionWrapper__textWrapper">
-      <h2 class="sectionWrapper__h2">Portfolio</h2>
-
-      <div id="portfolioWrapper__info">
-        <h3 id="portfolioWrapper__info__h3">Visualising University Ranking Data Web App</h3>
-        <p id="portfolioWrapper__info_p">Supporting university comparison across 3 different league tables through data
-          visaulisations</p>
-      </div>
-
-      <div id="portfolioWrapper__buttonAndImg">
-        <div id="portfolioWrapper__ButtonWrapper">
-          <a class="anchor" href="/uniRankHome">
-            <p id="portfolioWrapper__ButtonWrapper__Button">Take a Look ></p>
-          </a>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
+            <button
+                class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
+                type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="#about">About</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="#contact">CV</a></li>
+                </ul>
+            </div>
         </div>
-
-        <div id="portfolioWrapper__ImgWrapper">
-          <a class="anchor" href="/uniRankHome">
-            <img id="uniRankImg" src="res/graduation.png">
-          </a>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Heading-->
+            <h1 class="masthead-heading text-uppercase mb-0">Jeremy Elliott</h1>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-stop-circle"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Masthead Subheading-->
+            <p class="masthead-subheading font-weight-light mb-0">Web App Development - Data Analytics - Data
+                Visualisations</p>
         </div>
-      </div>
+    </header>
+    <!-- Portfolio Section-->
+    <section class="page-section portfolio" id="portfolio">
+        <div class="container">
+            <!-- Portfolio Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary">Portfolio</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-stop-circle"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Portfolio Grid Items-->
+            <div class="stackedRow">
+                <!-- Portfolio Item 1-->
+                <div class="portfolio-item-wrapper">
+                    <a href="/uniRankHome">
+                        <h2>University Ranking Data Visualisation Web App</h2>
+                    </a>
+                    <div class="row justify-content-around">
+                        <div>
+                            <p class="portfolio-item-description">Supporting university comparison across 3 different
+                                league tables through data
+                                visualisation.
+                            </p>
+                            <p class="portfolio-item-description">League table data is sourced from the Guardian, the
+                                Sunday Times, and the good university guide. The wrangled data is housed in a MySQL
+                                database for easy maintenance and manipulation as well as efficient querying.
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-lg-4 mb-5">
+                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-white"><i
+                                            class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <a href="/uniRankHome">
+                                    <img class="img-fluid" src="res/graduation.png"
+                                        alt="Graduation Photo" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="marginless-row lead">Tech Used
+                            <li class="row-li">JavaScript</li>
+                            <li class="row-li">HTML5</li>
+                            <li class="row-li">CSS3</li>
+                            <li class="row-li">MySQL</li>
+                            <li class="row-li">Node.js</li>
+                            <li class="row-li">D3.js</li>
+                            <li class="row-li">AWS (ECB2 + RDS)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2-->
+                <div class="portfolio-item-wrapper">
+                    <a href="https://jeremyelliott1.github.io/react-to-do-list/">
+                        <h2>React To Do List</h2>
+                    </a>
+                    <div class="row justify-content-around">
+                        <div>
+                            <p class="portfolio-item-description">To do list application that dynamically renders data
+                                and saves to local storage.
+                            </p>
+                            <p class="portfolio-item-description">The user is able to filter by complete/uncomplete
+                                tasks as well as all tasks.
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-lg-4 mb-5">
+                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-white"><i
+                                            class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <a href="https://jeremyelliott1.github.io/react-to-do-list/">
+                                    <img src="res/react-icon.svg" alt="React.js Icon" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="marginless-row lead">Tech Used
+                            <li class="row-li">React.js</li>
+                            <li class="row-li">JavaScript</li>
+                            <li class="row-li">HTML5</li>
+                            <li class="row-li">CSS3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section-->
+    <section class="page-section bg-primary text-white" id="about">
+        <div class="container">
+            <!-- About Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-stop-circle"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- About Section Content-->
+            <div class="row">
+                <div>
+                    <p class="lead">A recent MSc computer science graduate from Newcastle university on track to receive
+                        a distinction with a keen interest data analytics and web development. Comfortable operating in an
+                        unfamiliar environment reflected in my move from an economics undergraduate degree to a
+                        computer science postgraduate degree.</p>
+                </div>
+                <div>
+                    <p class="lead">
+                        The masters programme has exposed me to a wide variety of programming languages, design
+                        patterns & software
+                        development models. This has equipped me with a broad range of tools to problem solve by
+                        developing clean,
+                        testable and high-quality code.
+                    </p>
+                </div>
+                <div>
+                    <p class="lead">
+                        Please feel free to explore my website which includes my CV and my latest project seen in the
+                        portfolio section.
+                    </p>
+                </div>
+            </div>
+            <div id=skills-education-container>
+                <div class="stackedRow">
+                    <h2 class="row-header-centered my-4">Education</h2>
+                    <div>
+                        <ul class="lead">
+                            <li class="row-li">MSc Computer Science - Newcastle University</li>
+                            <li class="row-li">BA Hons Business Economics - Lancaster University</li>
+                            <li class="row-li">BA Hons Business Administration (1st year only) - University of Kent</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="stackedRow">
+                    <h2 class="row-header-centered my-4">Skills</h2>
+                    <div id="skills-list">
+                        <ul class="marginless-row lead">
+                            <li class="row-li">Java</li>
+                            <li class="row-li">JavaScript</li>
+                            <li class="row-li">HTML5</li>
+                            <li class="row-li">CSS3</li>
+                            <li class="row-li">SQL</li>
+                            <li class="row-li">Firebase</li>
+                            <li class="row-li">Git</li>
+                            <li class="row-li">Tableau</li>
+                            <li class="row-li">Android Studio</li>
+                            <li class="row-li">Node.js</li>
+                            <li class="row-li">React.js</li>
+                            <li class="row-li">D3.js</li>
+                            <li class="row-li">AWS</li>
+                            <li class="row-li">Linux Bash</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CV Section-->
+    <section class="page-section" id="contact">
+        <div class="container flex-sm-column align-items-center">
+            <!-- CV Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary">CV</h2>
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-stop-circle"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <div class="center-wrapper">
+                <a id=CvWrapper__downloadButton href="/downloadCV">
+                    <p>DownloadCV</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
+    </footer>
+    <!-- Copyright Section-->
+    <div class="copyright py-4 text-center text-white">
+        <div class="container"><small>Copyright © JeremyElliott2020</small></div>
     </div>
-
-
-    <p id="portfolioWrapper__techListDesc">Tech used </p>
-    <ul id="portfolioWrapper__techList">
-      <li>JavaScript</li>
-      <li>HTML5</li>
-      <li>CSS3</li>
-      <li>MySQL</li>
-      <li>Node.js</li>
-      <li>D3.js</li>
-      <li>AWS (ECB2 + RDS)</li>
-    </ul>
-
-    <br>    <br>    <br>
-    <br height = 4px>
-
-    <div id="reactList_section" class="sectionWrapper__textWrapper">
-
-      <div id="portfolioWrapper__info">
-        <h3 id="portfolioWrapper__info__h3">React To do List App</h3>
-        <p id="portfolioWrapper__info_p">To do list application that dynamically renders data and saves to local storage
-        </p>
-      </div>
-
-      <div id="portfolioWrapper__buttonAndImg">
-        <div id="portfolioWrapper__ButtonWrapper">
-          <a class="anchor" href="https://jeremyelliott1.github.io/react-to-do-list/">
-            <p id="portfolioWrapper__ButtonWrapper__Button">Take a Look ></p>
-          </a>
-        </div>
-
-        <div id="portfolioWrapper__ImgWrapper">
-          <a class="anchor" href="https://jeremyelliott1.github.io/react-to-do-list/">
-            <img id="uniRankImg" src="res/React-icon.svg">
-          </a>
-        </div>
-      </div>
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
+    <div class="scroll-to-top d-lg-none position-fixed">
+        <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i
+                class="fa fa-chevron-up"></i></a>
     </div>
-
-    <p id="portfolioWrapper__techListDesc">Tech used </p>
-    <ul id="portfolioWrapper__techList">
-      <li>React.js</li>
-      <li>JavaScript</li>
-      <li>HTML5</li>
-      <li>CSS3</li>
-    </ul>
-  </div>
-
-  </div>
-
-  <br height="18px">
-  <div class="sectionWrapper" id="cvWrapper">
-    <a class="anchor" id=CvWrapper__downloadButton href="/downloadCV">
-      <p>DownloadCV</p>
-    </a>
-  </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>
