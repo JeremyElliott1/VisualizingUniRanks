@@ -10207,6 +10207,9 @@ h3 {
 }
 
 .portfolio-item-wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+
 }
 
 .portfolio-item-description{
