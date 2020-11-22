@@ -24,3 +24,8 @@
     text-decoration: none;
     color: black;
   }
+
+  .centeredGridContainer {
+    display: grid;
+    justify-items: center;
+  }

@@ -70,7 +70,7 @@ svg {
   cursor: move;
 }
 
-.centeredImageWrapper {
+.centeredGridContainer {
   display: grid;
   justify-items: center;
 }
