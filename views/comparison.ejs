@@ -13,16 +13,14 @@
 <body>
     <button id="buttonHome"><a href="/">Home</a></button>
     <h1>Comparison Rankings</h1>
-
     <div id="menuContainer">
         <label for="universityMenu">Select a University:</label>
         <select id='universityDropDown' name="universityMenu"></select>
     </div>
-
-    <svg id="parallelChart" height="780" width="1300"></svg> 
-
-    <img id="weightingComparison_Img" img src="res/WeightingComparison.png" alt="UniversityRankingsWeightings">
-
+    <svg id="parallelChart" height="780" width="1300"></svg>
+    <div class='centeredImageWrapper'>
+        <img id="weightingComparison_Img" img src="res/WeightingComparison.png" alt="UniversityRankingsWeightings">
+    </div>
     <div id="guardian" data-xaxis="<%= dataSet1 %>"></div>
     <div id="completeUni" data-xaxis="<%= dataSet2 %>"></div>
 </body>
