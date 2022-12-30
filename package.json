@@ -19,7 +19,7 @@
   "homepage": "https://github.com/JeremyElliott1/DissertationProject#readme",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.1.3",
+    "mocha": "^8.4.0",
     "nodemon": "^2.0.4",
     "nyc": "^15.1.0"
   },
